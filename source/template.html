@@ -1,0 +1,32 @@
+<!--link rel="stylesheet" type="text/css" href="style.css">
+<script src="script.js" defer></script-->
+<meta charset="UTF-8">
+<label class="label-container" for="inputField">{{{LABEL}}}</label>
+
+{{#MEDIAIMAGE}}
+    <img src="{{MEDIAIMAGE}}" />
+{{/MEDIAIMAGE}}
+
+{{#MEDIAAUDIO}}
+    <audio controls>
+        <source src="{{MEDIAAUDIO}}">
+        Your browser does not support the audio element.
+    </audio>
+{{/MEDIAAUDIO}}
+
+{{#MEDIAVIDEO}}
+    <video width="100%" height="*" controls>
+        <source src="{{MEDIAVIDEO}}">
+        Your browser does not support the video tag.
+    </video>
+{{/MEDIAVIDEO}}
+
+<span class="help-block">{{{HINT}}}</span>
+<div class="form-group" style="margin-bottom: 0px;">
+    <em class="control-message"></em>
+    <input rows="1" value="{{CURRENT_ANSWER}}" class="form-control" id="field" placeholder="Your answer here..."
+           {{#READONLY}}readonly{{/READONLY}} autocomplete="off" onfocus="cursorToEnd(this)">
+    <div id="buttons"></div>
+    <div class="label-container" id="warning"></div>
+</div>
+

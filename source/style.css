@@ -1,0 +1,123 @@
+body{
+    /*font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;*/
+    -webkit-font-smoothing: antialiased;
+    font-weight: 300;
+}
+
+.label-container { /*Label*/
+    width: 100%;
+    margin-bottom: 15px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    display: inline-block;
+    max-width: 100%;
+}
+
+.help-block {/*Hint*/
+    margin-top: 5px;
+    font-size: 12px;
+    display: block;
+    margin-bottom: 5px;
+    color: #737373;
+    font-style: italic;
+    font-weight: 300;
+}
+
+.form-control { /*Input box*/
+    border-radius: 0!important;
+    box-shadow: none;
+    display: block;
+    width: 95%;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;overflow: hidden;
+    overflow-wrap: break-word;
+    resize: horizontal;
+    height: 20px;
+    outline: none;
+    font-family: inherit;
+    font: inherit;
+    margin: 0;
+}
+
+.form-control:focus { /*Input box when focused*/
+    border-color: #047cc2!important;
+    box-shadow: none;
+}
+
+button{
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    outline: none;
+    cursor: pointer;
+    box-shadow: inset 2px 2px 3px rgba(255, 255, 255, .6),
+    inset -2px -2px 3px rgba(0, 0, 0, .6);
+}
+
+button:active{
+    box-shadow: inset -2px -2px 3px rgba(255, 255, 255, .6),
+                inset 2px 2px 3px rgba(0, 0, 0, .6);
+}
+
+button.altbutton{
+    color: #000000;
+    height: 30px;
+    width: 120px;
+    font-size: 16px;
+    border-radius: 10px;
+    margin-top: 5px;
+    margin-right: 5px;
+    overflow: hidden;
+    vertical-align: top;
+}
+
+.button1{
+    background-color: #efefef;
+}
+
+.button2{
+    background-color: #8d8d8d;
+}
+
+
+button.whitebutton, button.bluebutton {
+    width: 55px;
+    font-weight: 500;
+    border-radius: 3px;
+    box-shadow: inset 0 -1px 0 0 rgba(0, 0, 0, 0.09);
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    margin-right: 5px;
+}
+
+button.whitebutton{
+    background-color: #ffffff;
+    border-color: #367fa9;
+    color: #000000;
+}
+
+button.bluebutton{
+    background-color: #047cc2;
+    border-color: #367fa9;
+    color: #ffffff;
+}
+
+.has-error em.control-message { /*Error area when there is an error*/
+    background: #f56954;
+    display: block;
+    width: 96%;
+    color: #FFF;
+    padding: 5px 10px;
+}
+
+.form-group.has-error .form-control { /*Input box when there is an error*/
+    border-color: #f56954!important;
+    box-shadow: none;
+}
