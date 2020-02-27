@@ -81,17 +81,19 @@ var allButtons = document.querySelectorAll('#buttons button');
 
 for (let button of allButtons) {
     buttonFontAdjuster(button);
-    button.addEventListener("click", function () {
-        let clicked = button.value;
-        let currentInput = input.value;
-        if ((currentInput == '') || (currentInput == null) || (altValues.indexOf(currentInput) != -1)) {
-            setAnswer(clicked);
-            goToNextField();
-        }
-        else {
-            dispWarning(clicked);
-        }
-    });
+    if (!fieldProperties.READONLY) {
+        button.addEventListener("click", function () {
+            let clicked = button.value;
+            let currentInput = input.value;
+            if ((currentInput == '') || (currentInput == null) || (altValues.indexOf(currentInput) != -1)) {
+                setAnswer(clicked);
+                goToNextField();
+            }
+            else {
+                dispWarning(clicked);
+            }
+        });
+    }
 }
 
 function clearAnswer() {
