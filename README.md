@@ -1,6 +1,6 @@
-# Extra buttons (in progress)
+# Extra buttons (in alpha)
 
-*This plug-in is in-progress, and may not work correctly.*
+*This plug-in is currently being tested, but has so far worked well.*
 
 ![Category buttons](extras/extra-buttons.png)
 
@@ -48,6 +48,8 @@ To create your own field plug-in using this as a template, follow these steps:
 There should be two parameters for each button you would like to include. The first of the two will be the name of the button, and the second will be the value applied to the field when the button is pressed. For example, if you would like an "I don't know" button with the value -99, and a "Refused" button with the value -88, then you can use this appearance:
 
     custom-extrabuttons(A="I don't know", B=-99, C="Refused", D=-88)
+
+Be sure to update your *constraint* so it accepts the button values as values.
 
 ## More resources
 
