@@ -16,7 +16,7 @@ The warning message is available in English, Spanish, French, Portuguese, Hindi,
 | Feature / Property | Support |
 | --- | --- |
 | Supported field type(s) | `text`, `integer`, `decimal`|
-| Default values | No |
+| Default values | Yes |
 | Custom constraint message | Yes |
 | Custom required message | Yes |
 | Read only | Yes |
