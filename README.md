@@ -8,7 +8,10 @@
 
 Use this plug-in to add extra buttons to your text, integer, or decimal field. When a button is selected, the field will automatically advance. If there is already something in the text box when pressing a button, a warning message will confirm if you would like to replace what you already have. You can specify exactly what each button says, and what its value should be (for example, you can specify that when "I don't know" is selected, then the field has a value of -99). You can use the parameters to specify as many buttons as you would like.
 
-The warning message is available in English, Spanish, French, Portuguese, Hindi, Urdu, Bangla, Amharic, and Burmese. The language will be determined by the form's currently selected language. If none of those languages are selected, then it will appear in English. You can use the language's English name or endonym, even if the endonym is in a non-Latin script. However, if you use a Latin script for the language, it must be all lowercase.
+There is also a warning message that will appear if there is already a value for the field and you tap/click one of the buttons, and the enumerator has to confirm they would like to replace the current value. The default message is:
+>Warning: This field already has a value of "[old value]". Are you sure you would like to replace this with "[replacement]"?
+
+However, this can be customized using the **Parameters** (see below).
 
 
 ## Default SurveyCTO feature support
@@ -45,9 +48,31 @@ To create your own field plug-in using this as a template, follow these steps:
 
 ## Parameters
 
-There should be two parameters for each button you would like to include. The first of the two will be the name of the button, and the second will be the value applied to the field when the button is pressed. For example, if you would like an "I don't know" button with the value -99, and a "Refused" button with the value -88, then you can use this appearance:
+The first three parameters are for the warning message: The first is the actual warning message, the second is the text of the "Yes" button, and the third is the display of the "No" button. For the message, you can even include the current value and the replacement value in the warning message. Similar to SurveyCTO, in your custom message, use `${oldvalue}` where you would like to display the current value of the field, and `${replacement}` where you would like to display the label of the button that is replacing it.
 
-    custom-extrabuttons(A="I don't know", B=-99, C="Refused", D=-88)
+For the first three parameters, if you would just like to use the default message, yes, and no labels, make the parameter equal to 1. You are more than welcome to have all three use the default labels.
+
+After that, there should be two parameters for each button you would like to include. The first of the two will be the name of the button, and the second will be the value applied to the field when the button is pressed. For example, if you would like an "I don't know" button with the value -99, and a "Refused" button with the value -88, then you can use this appearance:
+
+    custom-extrabuttons(message='Voulez-vous vraiment remplacer ${oldvalue} par ${replacement}?',
+    yes='Oui',
+    no='Non',
+    wbutton1="I don't know",
+    value1=-99,
+    button2='Refused',
+    value2=-88)
+
+Here is another example you can use:
+
+    custom-extrabuttons(message=1,
+    yes=1,
+    no='Nope',
+    wbutton1='Refused',
+    value1=-99,
+    button2="I don't understand",
+    value2=-88,
+    button3='Unable to answer',
+    value3=-77)
 
 Be sure to update your *constraint* so it accepts the button values as values.
 
