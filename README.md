@@ -57,7 +57,7 @@ After that, there should be two parameters for each button you would like to inc
     custom-extrabuttons(message='Voulez-vous vraiment remplacer ${oldvalue} par ${replacement}?',
     yes='Oui',
     no='Non',
-    wbutton1="I don't know",
+    button1="I don't know",
     value1=-99,
     button2='Refused',
     value2=-88)
@@ -67,7 +67,7 @@ Here is another example you can use:
     custom-extrabuttons(message=1,
     yes=1,
     no='Nope',
-    wbutton1='Refused',
+    button1='Refused',
     value1=-99,
     button2="I don't understand",
     value2=-88,
