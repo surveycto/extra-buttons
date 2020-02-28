@@ -24,9 +24,25 @@
 <span class="help-block">{{{HINT}}}</span>
 <div class="form-group" style="margin-bottom: 0px;">
     <em class="control-message"></em>
-    <input rows="1" value="{{CURRENT_ANSWER}}" class="form-control" id="field" placeholder="Your answer here..."
-           {{#READONLY}}readonly{{/READONLY}} autocomplete="off" onfocus="cursorToEnd(this)">
-    <div id="buttons"></div>
-    <div class="label-container" id="warning"></div>
+    <div id="input">
+        <!-- If the field is marked read only, then only show the input box if there is a current answer. -->
+        {{#READONLY}}
+        <p>{{CURRENT_ANSWER}}</p>
+        {{/READONLY}}
+
+
+        <!-- if the field is not marked read only, show the input box always. -->
+        {{^READONLY}}
+        <input
+               type="text"
+               value="{{CURRENT_ANSWER}}"
+               id="field"
+               class="form-control"
+               placeholder="Your answer here..."
+               onfocus="cursorToEnd(this)" />
+               <div id="buttons"></div>
+               <div class="label-container" id="warning"></div>
+        {{/READONLY}}
+    </div>
 </div>
 
