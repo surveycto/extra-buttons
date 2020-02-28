@@ -2,7 +2,7 @@ var fieldProperties = {
     "PARAMETERS": [
         {
             "key": "A",
-            "value": 'Overwrite ${oldvalue} with "${replacement}?"'
+            "value": 'Overwrite oldValue with "replacementValue"'
         },
         {
             "key": "A",
@@ -88,10 +88,12 @@ if (numParam >= 4) {
     var noButton;
 
     if (parameters[0] == 1) {
-        warningTemplate = 'Warning: This field already has a value of "${oldvalue}". Are you sure you would like to replace this with "${replacement}"?';
+        warningTemplate = 'Warning: This field already has a value of "${oldValue}". Are you sure you would like to replace this with "${replacementValue}"?';
     }
     else{
         warningTemplate = parameters[0].value;
+        warningTemplate = warningTemplate.replace('oldValue', '${oldValue}');
+        warningTemplate = warningTemplate.replace('replacementValue', '${replacementValue}');
     }
 
     if (parameters[1] == 1) {
@@ -151,9 +153,9 @@ if (numParam >= 4) {
     }
 
     function dispWarning(clicked) {
-        oldvalue = input.value;
+        oldValue = input.value;
         let altIndex = altValues.indexOf(parseInt(clicked));
-        replacement = parameters[altIndex * 2 + 3].value;
+        replacementValue = parameters[altIndex * 2 + 3].value;
 
         let warningMessage = new Function("return `" + warningTemplate + "`")();
         warningMessage += `<br><button id="yes" class="whitebutton">${yesButton}</button><button id="no" class="bluebutton">${noButton}</button>`

@@ -48,13 +48,13 @@ To create your own field plug-in using this as a template, follow these steps:
 
 ## Parameters
 
-The first three parameters are for the warning message: The first is the actual warning message, the second is the text of the "Yes" button, and the third is the display of the "No" button. For the message, you can even include the current value and the replacement value in the warning message. Similar to SurveyCTO, in your custom message, use `${oldvalue}` where you would like to display the current value of the field, and `${replacement}` where you would like to display the label of the button that is replacing it.
+The first three parameters are for the warning message: The first is the actual warning message, the second is the text of the "Yes" button, and the third is the display of the "No" button. For the message, you can even include the current value and the replacement value in the warning message. Similar to SurveyCTO, in your custom message, use `oldValue` where you would like to display the current value of the field, and `replacementValue` where you would like to display the label of the button that is replacing it.
 
 For the first three parameters, if you would just like to use the default message, yes, and no labels, make the parameter equal to 1. You are more than welcome to have all three use the default labels.
 
 After that, there should be two parameters for each button you would like to include. The first of the two will be the name of the button, and the second will be the value applied to the field when the button is pressed. For example, if you would like an "I don't know" button with the value -99, and a "Refused" button with the value -88, then you can use this appearance:
 
-    custom-extrabuttons(message='Voulez-vous vraiment remplacer ${oldvalue} par ${replacement}?',
+    custom-extrabuttons(message='Voulez-vous vraiment remplacer oldValue par replacementValue?',
     yes='Oui',
     no='Non',
     button1="I don't know",
