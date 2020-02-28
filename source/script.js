@@ -1,8 +1,8 @@
-var fieldProperties = {
+/*var fieldProperties = {
     "PARAMETERS": [
         {
             "key": "A",
-            "value": 'Overwrite oldValue with "replacementValue"'
+            "value": 1
         },
         {
             "key": "A",
@@ -37,7 +37,6 @@ var fieldProperties = {
             "value": -77
         }
     ],
-    "LANGUAGE": 'hindi',
     "FIELDTYPE": 'text',
     "APPEARANCE": ''
 }
@@ -51,7 +50,6 @@ var controlMessage = document.querySelector('.control-message');
 var buttonHolder = document.querySelector('#buttons');
 
 var parameters = fieldProperties.PARAMETERS;
-var language = fieldProperties.LANGUAGE;
 var altValues = [];
 var fieldType = fieldProperties.FIELDTYPE;
 var appearance = fieldProperties.APPEARANCE;
@@ -87,7 +85,7 @@ if (numParam >= 4) {
     var yesButton;
     var noButton;
 
-    if (parameters[0] == 1) {
+    if (parameters[0].value == 1) {
         warningTemplate = 'Warning: This field already has a value of "${oldValue}". Are you sure you would like to replace this with "${replacementValue}"?';
     }
     else{
@@ -96,14 +94,14 @@ if (numParam >= 4) {
         warningTemplate = warningTemplate.replace('replacementValue', '${replacementValue}');
     }
 
-    if (parameters[1] == 1) {
+    if (parameters[1].value == 1) {
         yesButton = "Yes";
     }
     else{
         yesButton = parameters[1].value;
     }
 
-    if (parameters[2] == 1) {
+    if (parameters[2].value == 1) {
         noButton = "No";
     }
     else{
