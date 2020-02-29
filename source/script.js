@@ -50,9 +50,9 @@ var controlMessage = document.querySelector('.control-message');
 var buttonHolder = document.querySelector('#buttons');
 
 var parameters = fieldProperties.PARAMETERS;
-var altValues = [];
 var fieldType = fieldProperties.FIELDTYPE;
 var appearance = fieldProperties.APPEARANCE;
+var altValues = [];
 
 if (fieldType == 'integer') {
     input.inputmode = 'numeric';
@@ -90,6 +90,8 @@ if (numParam >= 4) {
     }
     else{
         warningTemplate = parameters[0].value;
+
+        //Replaces holder values with template literal syntax
         warningTemplate = warningTemplate.replace('oldValue', '${oldValue}');
         warningTemplate = warningTemplate.replace('replacementValue', '${replacementValue}');
     }
@@ -108,8 +110,6 @@ if (numParam >= 4) {
         noButton = parameters[2].value;
     }
 
-
-
     for (let b = 3; b + 1 < numParam; b += 2) {
         let buttonName = parameters[b].value;
         let buttonVal = parameters[b + 1].value;
@@ -123,7 +123,7 @@ if (numParam >= 4) {
     for (let button of allButtons) {
         buttonFontAdjuster(button);
         if (!fieldProperties.READONLY) {
-            button.addEventListener("click", function () {
+            button.addEventListener("click", function () { //Adds event listener to buttons
                 let clicked = button.value;
                 let currentInput = input.value;
                 if ((currentInput == '') || (currentInput == null) || (altValues.indexOf(currentInput) != -1)) {
@@ -137,7 +137,7 @@ if (numParam >= 4) {
         }
     }
 
-    function buttonFontAdjuster(button) {
+    function buttonFontAdjuster(button) { //Adjusts size of the text of the buttons in case the text is too long
         var fontSize = parseInt(window.getComputedStyle(button, null).getPropertyValue('font-size'));
         let stopper = 50;
         while (button.scrollHeight > button.clientHeight) {
@@ -150,13 +150,13 @@ if (numParam >= 4) {
         }
     }
 
-    function dispWarning(clicked) {
+    function dispWarning(clicked) { //Displays the warning when tapping a button when there is already content in the text box
         oldValue = input.value;
         let altIndex = altValues.indexOf(parseInt(clicked));
         replacementValue = parameters[altIndex * 2 + 3].value;
 
-        let warningMessage = new Function("return `" + warningTemplate + "`")();
-        warningMessage += `<br><button id="yes" class="whitebutton">${yesButton}</button><button id="no" class="bluebutton">${noButton}</button>`
+        let warningMessage = new Function("return `" + warningTemplate + "`")(); //Takes the string template, and turns it into an actual template.
+        warningMessage += `<br><button id="yes" class="whitebutton">${yesButton}</button><button id="no" class="bluebutton">${noButton}</button>` //Adds on the "Yes" and "No" buttons
 
         warning.innerHTML = warningMessage;
 
@@ -183,13 +183,10 @@ function setFocus() {
         if (window.showSoftKeyboard) {
             window.showSoftKeyboard();
         }
-        /*if (typeof input.selectionStart == "number") {
-            input.selectionStart = input.selectionEnd = input.value.length;
-        }*/
     }
 }
 
-function cursorToEnd(el) {
+function cursorToEnd(el) { //Moves cursor to end of text in text box (incondistent in non-text fields)
     if (typeof el.selectionStart == "number") {
         el.selectionStart = el.selectionEnd = el.value.length;
     }
