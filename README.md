@@ -2,7 +2,7 @@
 
 *This plug-in is currently being tested, but has so far worked well.*
 
-![Category buttons](extras/extra-buttons.png)
+![Category buttons](extras/extra-buttons.png) ![Warning message](extras/warning-message.png)
 
 ## Description
 
