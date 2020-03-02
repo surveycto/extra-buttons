@@ -54,7 +54,7 @@ For the first three parameters, if you would just like to use the default messag
 
 After that, there should be two parameters for each button you would like to include. The first of the two will be the name of the button, and the second will be the value applied to the field when the button is pressed. For example, if you would like an "I don't know" button with the value -99, and a "Refused" button with the value -88, then you can use this appearance:
 
-    custom-extrabuttons(message='Voulez-vous vraiment remplacer oldValue par replacementValue?',
+    custom-extrabuttons(warning='Voulez-vous vraiment remplacer oldValue par replacementValue?',
     yes='Oui',
     no='Non',
     button1="I don't know",
@@ -64,7 +64,7 @@ After that, there should be two parameters for each button you would like to inc
 
 Here is another example you can use:
 
-    custom-extrabuttons(message=1,
+    custom-extrabuttons(warning=1,
     yes=1,
     no='Nope',
     button1='Refused',
