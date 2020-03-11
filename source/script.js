@@ -37,8 +37,8 @@
             "value": -77
         }
     ],
-    "FIELDTYPE": 'text',
-    "APPEARANCE": ''
+    "FIELDTYPE": 'integer',
+    "APPEARANCE": 'show_formatted'
 }
 var input = document.querySelector('#field');
 setFocus()
@@ -47,6 +47,7 @@ setFocus()
 var input = document.querySelector('#field');
 var formGroup = document.querySelector('.form-group');
 var controlMessage = document.querySelector('.control-message');
+var formattedSpan = document.querySelector('#formatted');
 var buttonHolder = document.querySelector('#buttons');
 
 var parameters = fieldProperties.PARAMETERS;
@@ -201,7 +202,30 @@ function cursorToEnd(el) { //Moves cursor to end of text in text box (incondiste
 input.oninput = function () {
     formGroup.classList.remove('has-error');
     controlMessage.innerHTML = "";
-    let answer = input.value;
+    let answer = input.value.toString();
+
+    if(appearance.includes('show_formatted')){
+        let pointLoc = answer.indexOf('.');
+
+        if(pointLoc == -1){
+            formattedSpan.innerHTML = answer.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+        else{
+            let beforePoint = answer.substring(0, pointLoc).replace(/\B(?=(\d{3})+(?!\d))/g, ","); //Before the decimal point
+            let midPoint = answer.substring(pointLoc + 1, pointLoc + 3); //The first two digits after the decimal point; this is because the first two digits after the decimal point are the "tenths" and "hundredths", while after that is "thousandths"
+            let afterPoint = answer.substring(pointLoc + 3, answer.length).replace(/\B(?<=(^(\d{3})+))/g, ","); //After the first two digits after the decimal point
+            let total = beforePoint;
+
+            if(midPoint != ''){ //Adds the decimal point only if it is needed
+                total += '.' + midPoint;
+                if(afterPoint != ''){ //Adds the comma after "midPoint" and the rest only if they are needed
+                    total += ',' + afterPoint;
+                }
+            }
+            formattedSpan.innerHTML = total;
+        }
+    }
+
     setAnswer(answer);
 }
 

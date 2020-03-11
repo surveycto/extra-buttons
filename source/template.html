@@ -3,21 +3,21 @@
 <label class="label-container" for="inputField">{{{LABEL}}}</label>
 
 {{#MEDIAIMAGE}}
-    <img src="{{MEDIAIMAGE}}" />
+<img src="{{MEDIAIMAGE}}" />
 {{/MEDIAIMAGE}}
 
 {{#MEDIAAUDIO}}
-    <audio controls>
-        <source src="{{MEDIAAUDIO}}">
-        Your browser does not support the audio element.
-    </audio>
+<audio controls>
+    <source src="{{MEDIAAUDIO}}">
+    Your browser does not support the audio element.
+</audio>
 {{/MEDIAAUDIO}}
 
 {{#MEDIAVIDEO}}
-    <video width="100%" height="*" controls>
-        <source src="{{MEDIAVIDEO}}">
-        Your browser does not support the video tag.
-    </video>
+<video width="100%" height="*" controls>
+    <source src="{{MEDIAVIDEO}}">
+    Your browser does not support the video tag.
+</video>
 {{/MEDIAVIDEO}}
 
 <span class="help-block">{{{HINT}}}</span>
@@ -38,10 +38,11 @@
                id="field"
                class="form-control"
                placeholder="Your answer here..."
+               autocomplete="off"
                onfocus="cursorToEnd(this)" />
-               <div id="buttons"></div>
-               <div class="label-container" id="warning"></div>
+        <span id="formatted" class="field-number-formatted label-container"></span>
+        <div id="buttons"></div>
+        <div class="label-container" id="warning"></div>
         {{/READONLY}}
     </div>
 </div>
-

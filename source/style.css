@@ -49,6 +49,12 @@ body{
     box-shadow: none;
 }
 
+.field-number-formatted{
+    display: inline-block;
+    font-weight: 400;
+    padding: 5px 10px 10px;
+}
+
 button{
     text-align: center;
     text-decoration: none;

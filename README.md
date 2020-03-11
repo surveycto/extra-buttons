@@ -29,7 +29,7 @@ However, it can be customized using the **Parameters** (see below).
 | `number` appearance | Yes |
 | `numbers_decimal` appearance | Yes |
 | `numbers_phone` appearance | Yes |
-| `show_formatted` appearance | No |
+| `show_formatted` appearance | Yes |
 
 ## How to use
 
