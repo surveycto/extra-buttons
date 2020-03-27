@@ -202,31 +202,37 @@ function cursorToEnd(el) { //Moves cursor to end of text in text box (incondiste
 input.oninput = function () {
     formGroup.classList.remove('has-error');
     controlMessage.innerHTML = "";
-    let answer = input.value.toString();
+    let currentAnswer = input.value;
 
-    if(appearance.includes('show_formatted')){
-        let pointLoc = answer.indexOf('.');
+    if (appearance.includes('show_formatted')) {
+        let ansString = currentAnswer.toString();
+        let pointLoc = currentAnswer.indexOf('.');
 
-        if(pointLoc == -1){
-            formattedSpan.innerHTML = answer.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        if (pointLoc == -1) {
+            formattedSpan.innerHTML = ansString.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
-        else{
-            let beforePoint = answer.substring(0, pointLoc).replace(/\B(?=(\d{3})+(?!\d))/g, ","); //Before the decimal point
-            let midPoint = answer.substring(pointLoc + 1, pointLoc + 3); //The first two digits after the decimal point; this is because the first two digits after the decimal point are the "tenths" and "hundredths", while after that is "thousandths"
+        else {
+            let beforePoint = ansString.substring(0, pointLoc).replace(/\B(?=(\d{3})+(?!\d))/g, ","); //Before the decimal point
+
+            //The part below adds commas to the numbers after the decimal point. Unfortunately, a lookbehind assersion breaks the JS in iOS right now, so this has been commented out for now.
+            /*let midPoint = answer.substring(pointLoc + 1, pointLoc + 3); //The first two digits after the decimal point; this is because the first two digits after the decimal point are the "tenths" and "hundredths", while after that is "thousandths"
             let afterPoint = answer.substring(pointLoc + 3, answer.length).replace(/\B(?<=(^(\d{3})+))/g, ","); //After the first two digits after the decimal point
             let total = beforePoint;
-
-            if(midPoint != ''){ //Adds the decimal point only if it is needed
+ 
+            if (midPoint != '') { //Adds the decimal point only if it is needed
                 total += '.' + midPoint;
-                if(afterPoint != ''){ //Adds the comma after "midPoint" and the rest only if they are needed
+                if (afterPoint != '') { //Adds the comma after "midPoint" and the rest only if they are needed
                     total += ',' + afterPoint;
                 }
-            }
+            }*/
+            let afterPoint = ansString.substring(pointLoc, ansString.length);
+            let total = beforePoint + afterPoint;
+
             formattedSpan.innerHTML = total;
         }
     }
 
-    setAnswer(answer);
+    setAnswer(currentAnswer);
 }
 
 
