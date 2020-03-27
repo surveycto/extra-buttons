@@ -1,12 +1,10 @@
-# Extra buttons (in alpha)
-
-*This plug-in is currently being tested, but has so far worked well.*
+# Extra button
 
 ![Category buttons](extras/extra-buttons.png) ![Warning message](extras/warning-message.png)
 
 ## Description
 
-Use this plug-in to add extra buttons to your text, integer, or decimal field. When a button is selected, the field will automatically advance. If there is already something in the text box when pressing a button, a warning message will confirm if you would like to replace what you already have. You can specify exactly what each button says, and what its value should be (for example, you can specify that when "I don't know" is selected, then the field has a value of -99). You can use the parameters to specify as many buttons as you would like.
+Use this field plug-in to add extra buttons to your text, integer, or decimal field. When a button is selected, the field will automatically advance. If there is already something in the text box when pressing a button, a warning message will confirm if you would like to replace what you already have. You can specify exactly what each button says, and what its value should be (for example, you can specify that when "I don't know" is selected, then the field has a value of -99). You can use the parameters to specify as many buttons as you would like.
 
 The default warning message is:
 >Warning: This field already has a value of "[old value]". Are you sure you would like to replace this with "[replacement]"?
@@ -33,7 +31,7 @@ However, it can be customized using the **Parameters** (see below).
 
 ## How to use
 
-**To use this plug-in as-is**, just download the [extrabuttons.fieldplugin.zip](extrabuttons.fieldplugin.zip) file from this repo, and attach it to your form.
+**To use this field plug-in as-is**, just download the [extrabuttons.fieldplugin.zip](extrabuttons.fieldplugin.zip) file from this repo, and attach it to your form.
 
 To create your own field plug-in using this as a template, follow these steps:
 
@@ -43,7 +41,7 @@ To create your own field plug-in using this as a template, follow these steps:
     * **Note:** be sure to update the `manifest.json` file as well.
 
 1. Zip the updated contents of the `source` directory.
-1. Rename the .zip file to *yourpluginname*.fieldplugin.zip (replace *yourpluginname* with the name you want to use for your plug-in).
+1. Rename the .zip file to *yourpluginname*.fieldplugin.zip (replace *yourpluginname* with the name you want to use for your field plug-in).
 1. You may then attach your new .fieldplugin.zip file to your form as normal.
 
 ## Parameters
