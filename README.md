@@ -11,7 +11,7 @@ The default warning message is:
 
 However, it can be customized using the **Parameters** (see below).
 
-[![Download now](extras/download-button.png)](https://github.com/surveycto/launch-sms/raw/master/extrabuttons.fieldplugin.zip)
+[![Download now](extras/download-button.png)](https://github.com/surveycto/extra-buttons/raw/master/extrabuttons.fieldplugin.zip)
 
 ## Default SurveyCTO feature support
 
