@@ -174,7 +174,7 @@ if (numParam >= 4) {
 
 function clearAnswer() {
     input.value = '';
-    setAnswer();
+    setAnswer('');
 }
 
 function setFocus() {
