@@ -114,7 +114,7 @@ if (numParam >= 4) {
     for (let b = 3; b + 1 < numParam; b += 2) {
         let buttonName = parameters[b].value;
         let buttonVal = parameters[b + 1].value;
-        let buttonHtml = '<button id="' + buttonName + '" class="altbutton button' + (((b + 1)/2 % 2) + 1) + '" value="' + buttonVal + '">' + buttonName + '</button>';
+        let buttonHtml = '<button id="' + buttonName + '" class="altbutton button' + (((b + 1)/2 % 2) + 1) + '" value="' + buttonVal + '" dir="auto">' + buttonName + '</button>';
         buttonsDisp += buttonHtml;
         altValues.push(buttonVal);
     }
@@ -157,7 +157,7 @@ if (numParam >= 4) {
         replacementValue = parameters[altIndex * 2 + 3].value;
 
         let warningMessage = new Function("return `" + warningTemplate + "`")(); //Takes the string template, and turns it into an actual template.
-        warningMessage += `<br><button id="yes" class="whitebutton">${yesButton}</button><button id="no" class="bluebutton">${noButton}</button>` //Adds on the "Yes" and "No" buttons
+        warningMessage += `<br><button id="yes" class="whitebutton" dir="auto">${yesButton}</button><button id="no" class="bluebutton" dir="auto">${noButton}</button>` //Adds on the "Yes" and "No" buttons
 
         warning.innerHTML = warningMessage;
 

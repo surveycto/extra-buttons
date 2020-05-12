@@ -1,6 +1,6 @@
 <!--link rel="stylesheet" type="text/css" href="style.css">
 <script src="script.js" defer></script-->
-<label class="label-container" for="inputField">{{{LABEL}}}</label>
+<label class="label-container" for="inputField" dir="auto">{{{LABEL}}}</label>
 
 {{#MEDIAIMAGE}}
 <img src="{{MEDIAIMAGE}}" />
@@ -20,13 +20,13 @@
 </video>
 {{/MEDIAVIDEO}}
 
-<span class="help-block">{{{HINT}}}</span>
+<span class="help-block" dir="auto">{{{HINT}}}</span>
 <div class="form-group" style="margin-bottom: 0px;">
-    <em class="control-message"></em>
+    <em class="control-message" dir="auto"></em>
     <div id="input">
         <!-- If the field is marked read only, then only show the input box if there is a current answer. -->
         {{#READONLY}}
-        <p>{{CURRENT_ANSWER}}</p>
+        <p dir="auto">{{CURRENT_ANSWER}}</p>
         {{/READONLY}}
 
 
@@ -42,7 +42,7 @@
                onfocus="cursorToEnd(this)" />
         <span id="formatted" class="field-number-formatted label-container"></span>
         <div id="buttons"></div>
-        <div class="label-container" id="warning"></div>
+        <div class="label-container" id="warning" dir="auto"></div>
         {{/READONLY}}
     </div>
 </div>
