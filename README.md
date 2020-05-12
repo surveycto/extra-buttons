@@ -77,8 +77,8 @@ Be sure to update your *constraint* so it accepts the button values as values.
 
 ## More resources
 
-* **Test form**  
-You can find a form definition in this repo here: [extras/test-form](extras/test-form).
+* **Sample form**  
+You can find a form definition in this repo here: [extras/sample-form](extras/sample-form).
 
 * **Developer documentation**  
 More instructions for developing and using field plug-ins can be found here: [https://github.com/surveycto/Field-plug-in-resources](https://github.com/surveycto/Field-plug-in-resources)
