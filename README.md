@@ -1,6 +1,10 @@
 # Extra button
 
-![Category buttons](extras/extra-buttons.png) ![Warning message](extras/warning-message.png)
+![Category buttons](extras/extra-buttons.png)
+
+|<img src="extras/warning-message.png" width="100px">|
+|:---:|
+|Warning|
 
 ## Description
 
@@ -10,6 +14,8 @@ The default warning message is:
 >Warning: This field already has a value of "[old value]". Are you sure you would like to replace this with "[replacement]"?
 
 However, it can be customized using the **Parameters** (see below).
+
+This field plug-in also inherits functionality from the [baseline-text](https://github.com/surveycto/baseline-text), [baseline-integer](https://github.com/surveycto/baseline-integer), and [baseline-decimal](https://github.com/surveycto/baseline-decimal) field plug-ins.
 
 [![Download now](extras/download-button.png)](https://github.com/surveycto/extra-buttons/raw/master/extrabuttons.fieldplugin.zip)
 
@@ -32,18 +38,11 @@ However, it can be customized using the **Parameters** (see below).
 
 ## How to use
 
-**To use this field plug-in as-is**, just download the [extrabuttons.fieldplugin.zip](extrabuttons.fieldplugin.zip) file from this repo, and attach it to your form.
+**To use this field plug-in as-is:**
 
-To create your own field plug-in using this as a template, follow these steps:
-
-1. Fork this repo
-1. Make changes to the files in the `source` directory.
-
-    * **Note:** be sure to update the `manifest.json` file as well.
-
-1. Zip the updated contents of the `source` directory.
-1. Rename the .zip file to *yourpluginname*.fieldplugin.zip (replace *yourpluginname* with the name you want to use for your field plug-in).
-1. You may then attach your new .fieldplugin.zip file to your form as normal.
+1. Download the [sample form](extras/sample-form) from this repo and upload it to your SurveyCTO server.
+1. Download the [extrabuttons.fieldplugin.zip](https://github.com/surveycto/extra-buttons/raw/master/extrabuttons.fieldplugin.zip) file from this repo, and attach it to the sample form on your SurveyCTO server.
+1. Adjust the parameter if you would like to use a different unit (see below).
 
 ## Parameters
 
