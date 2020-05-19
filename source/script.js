@@ -107,9 +107,9 @@ if (numParam >= 4) {
   }
 
   for (let b = 3; b + 1 < numParam; b += 2) {
-    let buttonName = parameters[b].value
-    let buttonVal = parameters[b + 1].value
-    let buttonHtml = '<button id="' + buttonName + '" class="altbutton button' + (((b + 1) / 2 % 2) + 1) + '" value="' + buttonVal + '" dir="auto">' + buttonName + '</button>'
+    const buttonName = parameters[b].value
+    const buttonVal = parameters[b + 1].value
+    const buttonHtml = '<button id="' + buttonName + '" class="altbutton button' + (((b + 1) / 2 % 2) + 1) + '" value="' + buttonVal + '" dir="auto">' + buttonName + '</button>'
     buttonsDisp += buttonHtml
     altValues.push(buttonVal)
   }
@@ -150,7 +150,7 @@ if (numParam >= 4) {
     let altIndex = altValues.indexOf(parseInt(clicked))
     replacementValue = parameters[altIndex * 2 + 3].value
 
-    let warningMessage = new Function("return `" + warningTemplate + "`")() // akes the string template, and turns it into an actual template.
+    let warningMessage = new Function('return `' + warningTemplate + '`')() // akes the string template, and turns it into an actual template.
     warningMessage += `<br><button id="yes" class="whitebutton" dir="auto">${yesButton}</button><button id="no" class="bluebutton" dir="auto">${noButton}</button>` // dds on the "Yes" and "No" buttons
 
     warning.innerHTML = warningMessage
@@ -210,7 +210,7 @@ input.oninput = function () {
       /* let midPoint = answer.substring(pointLoc + 1, pointLoc + 3) // he first two digits after the decimal point this is because the first two digits after the decimal point are the "tenths" and "hundredths", while after that is "thousandths"
       let afterPoint = answer.substring(pointLoc + 3, answer.length).replace(/\B(?<=(^(\d{3})+))/g, ",") // fter the first two digits after the decimal point
       let total = beforePoint
- 
+
       if (midPoint != '') { // dds the decimal point only if it is needed
         total += '.' + midPoint
         if (afterPoint != '') { // dds the comma after "midPoint" and the rest only if they are needed
