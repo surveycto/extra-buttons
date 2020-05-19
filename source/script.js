@@ -66,6 +66,61 @@ function buttonFontAdjuster (button) { // djusts size of the text of the buttons
   }
 }
 
+function clearAnswer () {
+  input.value = ''
+  setAnswer('')
+}
+
+function setFocus () {
+  input.focus()
+
+  if (!fieldProperties.READONLY) {
+    if (window.showSoftKeyboard) {
+      window.showSoftKeyboard()
+    }
+  }
+}
+
+function cursorToEnd (el) { // oves cursor to end of text in text box (incondistent in non-text fields)
+  if (typeof el.selectionStart === 'number') {
+    el.selectionStart = el.selectionEnd = el.value.length
+  } else if (typeof el.createTextRange !== 'undefined') {
+    el.focus()
+    var range = el.createTextRange()
+    range.collapse(false)
+    range.select()
+  }
+}
+
+function handleConstraintMessage (message) {
+  formGroup.classList.add('has-error')
+  controlMessage.innerHTML = message
+  setFocus()
+}
+
+function handleRequiredMessage (message) {
+  handleConstraintMessage(message)
+}
+
+function dispWarning (clickedLabel, clickedValue) { // Displays the warning when tapping a button when there is already content in the text box
+  oldValue = input.value
+  replacementValue = clickedLabel
+
+  let warningMessage = new Function('return `' + warningTemplate + '`')() // Takes the string template, and turns it into an actual template.
+  warningMessage += `<br><button id="yes" class="whitebutton" dir="auto">${yesButton}</button><button id="no" class="bluebutton" dir="auto">${noButton}</button>` // Adds on the "Yes" and "No" buttons
+
+  warningContainer.innerHTML = warningMessage
+
+  document.querySelector('#yes').addEventListener('click', function () {
+    setAnswer(clickedValue)
+    goToNextField()
+  })
+
+  document.querySelector('#no').addEventListener('click', function () {
+    warningContainer.innerHTML = null
+  })
+}
+
 /* global fieldProperties, setAnswer, goToNextField, getPluginParameter */
 
 var input = document.querySelector('#field')
@@ -78,6 +133,9 @@ var warningContainer = document.querySelector('#warning')
 var fieldType = fieldProperties.FIELDTYPE
 var appearance = fieldProperties.APPEARANCE
 var altValues = []
+var buttonsDisp = ''
+var oldValue
+var replacementValue
 
 if (fieldType === 'integer') {
   input.inputmode = 'numeric'
@@ -97,8 +155,6 @@ if (fieldType === 'integer') {
     input.type = 'number'
   }
 }
-
-var buttonsDisp = ''
 
 for (let buttonNumber = 1; buttonNumber <= 100; buttonNumber++) {
   const buttonLabel = getPluginParameter('button' + String(buttonNumber))
@@ -147,32 +203,6 @@ if (warningTemplate == null) {
   warningTemplate = warningTemplate.replace('replacementValue', '${replacementValue}')
 }
 
-function clearAnswer () {
-  input.value = ''
-  setAnswer('')
-}
-
-function setFocus () {
-  input.focus()
-
-  if (!fieldProperties.READONLY) {
-    if (window.showSoftKeyboard) {
-      window.showSoftKeyboard()
-    }
-  }
-}
-
-function cursorToEnd (el) { // oves cursor to end of text in text box (incondistent in non-text fields)
-  if (typeof el.selectionStart === 'number') {
-    el.selectionStart = el.selectionEnd = el.value.length
-  } else if (typeof el.createTextRange !== 'undefined') {
-    el.focus()
-    var range = el.createTextRange()
-    range.collapse(false)
-    range.select()
-  }
-}
-
 input.oninput = function () {
   formGroup.classList.remove('has-error')
   controlMessage.innerHTML = ''
@@ -206,36 +236,4 @@ input.oninput = function () {
   }
 
   setAnswer(currentAnswer)
-}
-
-function handleConstraintMessage (message) {
-  formGroup.classList.add('has-error')
-  controlMessage.innerHTML = message
-  setFocus()
-}
-
-function handleRequiredMessage (message) {
-  handleConstraintMessage(message)
-}
-
-var oldValue
-var replacementValue
-
-function dispWarning (clickedLabel, clickedValue) { // Displays the warning when tapping a button when there is already content in the text box
-  oldValue = input.value
-  replacementValue = clickedLabel
-
-  let warningMessage = new Function('return `' + warningTemplate + '`')() // Takes the string template, and turns it into an actual template.
-  warningMessage += `<br><button id="yes" class="whitebutton" dir="auto">${yesButton}</button><button id="no" class="bluebutton" dir="auto">${noButton}</button>` // Adds on the "Yes" and "No" buttons
-
-  warningContainer.innerHTML = warningMessage
-
-  document.querySelector('#yes').addEventListener('click', function () {
-    setAnswer(clickedValue)
-    goToNextField()
-  })
-
-  document.querySelector('#no').addEventListener('click', function () {
-    warningContainer.innerHTML = null
-  })
 }
