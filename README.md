@@ -8,6 +8,8 @@
 
 ## Description
 
+*Note: There were recent updates to the field plug-in paramters. If you are already using an older version of this field plug-in (before 1.2.0), and you would like to use the newer version, you will have to update your parameters in the* appearance *property of your field(s). See **Parameters** below for more details.*
+
 Use this field plug-in to add extra buttons to your text, integer, or decimal field. When a button is selected, the field will automatically advance. If there is already something in the text box when pressing a button, a warning message will confirm if you would like to replace what you already have. You can specify exactly what each button says, and what its value should be (for example, you can specify that when "I don't know" is selected, then the field has a value of -99). You can use the parameters to specify as many buttons as you would like.
 
 The default warning message is:
@@ -50,34 +52,25 @@ For each extra button you would like to add, you will need a label, called "butt
 
     custom-extrabuttons(button1="I don't know", value1=-99, button2='Refused', value2=-88)
 
-You can add as many or as few parameters as you'd like.
+You can add as many or as few buttons as you'd like.
+
+Be sure to update your *constraint* so it accepts the button values as values.
 
 You can also customize the error message that appears when an enumerator selects a button when the field already has a value.
 
-`warning`: What will be displayed instead of the default warning message.
+`warning`: What will be displayed instead of the default warning message.<br>
+`yes`: What will be displayed instead of "Yes" in the confirmation.<br>
+`no`: What will be displayed instead of "No" in the confirmation.
 
+You can also add `oldValue` to the warning to show where the current value of the field will go, and `replacementValue` to show where the button label will go in the warning message.
 
-    custom-extrabuttons(warning='Voulez-vous vraiment remplacer oldValue par replacementValue?',
+    custom-extrabuttons(warning='Voulez-vous vraiment remplacer "oldValue" par "replacementValue"?',
     yes='Oui',
     no='Non',
     button1="I don't know",
     value1=-99,
     button2='Refused',
     value2=-88)
-
-Here is another example you can use:
-
-    custom-extrabuttons(warning=1,
-    yes=1,
-    no='Nope',
-    button1='Refused',
-    value1=-99,
-    button2="I don't understand",
-    value2=-88,
-    button3='Unable to answer',
-    value3=-77)
-
-Be sure to update your *constraint* so it accepts the button values as values.
 
 ## More resources
 
