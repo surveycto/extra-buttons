@@ -68,6 +68,7 @@ function buttonFontAdjuster (button) { // djusts size of the text of the buttons
 
 function clearAnswer () {
   input.value = ''
+  setMetaData('')
   setAnswer('')
 }
 
@@ -112,6 +113,7 @@ function dispWarning (clickedLabel, clickedValue) { // Displays the warning when
   warningContainer.innerHTML = warningMessage
 
   document.querySelector('#yes').addEventListener('click', function () {
+    setMetaData(clickedLabel)
     setAnswer(clickedValue)
     goToNextField()
   })
@@ -121,7 +123,7 @@ function dispWarning (clickedLabel, clickedValue) { // Displays the warning when
   })
 }
 
-/* global fieldProperties, setAnswer, goToNextField, getPluginParameter */
+/* global fieldProperties, setAnswer, goToNextField, getPluginParameter, setMetaData */
 
 var input = document.querySelector('#field')
 var formGroup = document.querySelector('.form-group')
@@ -176,6 +178,7 @@ for (const button of allButtons) {
       const clickedValue = button.value
       const currentInput = input.value
       if ((currentInput === '') || (currentInput == null) || (altValues.indexOf(currentInput) !== -1)) {
+        setMetaData(clickedLabel)
         setAnswer(clickedValue)
         goToNextField()
       } else {
@@ -234,6 +237,6 @@ input.oninput = function () {
       formattedSpan.innerHTML = total
     }
   }
-
+  setMetaData('')
   setAnswer(currentAnswer)
 }
