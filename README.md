@@ -8,7 +8,9 @@
 
 ## Description
 
-*Note: There were recent updates to the field plug-in paramters. If you are already using an older version of this field plug-in (before 1.2.0), and you would like to use the newer version, you will have to update your parameters in the* appearance *property of your field(s). See **Parameters** below for more details.*
+*Requires at least Android 7 or iOS 13 to work in SurveyCTO Collect mobile.*
+
+*There were recent updates to the field plug-in paramters. If you are already using an older version of this field plug-in (before 1.2.0), and you would like to use the newer version, you will have to update your parameters in the* appearance *property of your field(s). See **Parameters** below for more details.*
 
 Use this field plug-in to add extra buttons to your text, integer, or decimal field. When a button is selected, the field will automatically advance. If there is already something in the text box when pressing a button, a warning message will confirm if you would like to replace what you already have.
 
