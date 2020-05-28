@@ -53,75 +53,7 @@ function goToNextField () {
 // document.body.classList.add('android-collect')
 // Above for testing only */
 
-function buttonFontAdjuster (button) { // djusts size of the text of the buttons in case the text is too long
-  var fontSize = parseInt(window.getComputedStyle(button, null).getPropertyValue('font-size'))
-  let stopper = 50
-  while (button.scrollHeight > button.clientHeight) {
-    fontSize--
-    button.style.fontSize = fontSize + 'px'
-    stopper--
-    if (stopper <= 0) {
-      return
-    }
-  }
-}
 
-function clearAnswer () {
-  input.value = ''
-  setMetaData('')
-  setAnswer('')
-}
-
-function setFocus () {
-  input.focus()
-
-  if (!fieldProperties.READONLY) {
-    if (window.showSoftKeyboard) {
-      window.showSoftKeyboard()
-    }
-  }
-}
-
-function cursorToEnd (el) { // oves cursor to end of text in text box (incondistent in non-text fields)
-  if (typeof el.selectionStart === 'number') {
-    el.selectionStart = el.selectionEnd = el.value.length
-  } else if (typeof el.createTextRange !== 'undefined') {
-    el.focus()
-    var range = el.createTextRange()
-    range.collapse(false)
-    range.select()
-  }
-}
-
-function handleConstraintMessage (message) {
-  formGroup.classList.add('has-error')
-  controlMessage.innerHTML = message
-  setFocus()
-}
-
-function handleRequiredMessage (message) {
-  handleConstraintMessage(message)
-}
-
-function dispWarning (clickedLabel, clickedValue) { // Displays the warning when tapping a button when there is already content in the text box
-  oldValue = input.value
-  replacementValue = clickedLabel
-
-  let warningMessage = new Function('return `' + warningTemplate + '`')() // Takes the string template, and turns it into an actual template.
-  warningMessage += `<br><button id="yes" class="whitebutton" dir="auto">${yesButton}</button><button id="no" class="bluebutton" dir="auto">${noButton}</button>` // Adds on the "Yes" and "No" buttons
-
-  warningContainer.innerHTML = warningMessage
-
-  document.querySelector('#yes').addEventListener('click', function () {
-    setMetaData(clickedLabel)
-    setAnswer(clickedValue)
-    goToNextField()
-  })
-
-  document.querySelector('#no').addEventListener('click', function () {
-    warningContainer.innerHTML = null
-  })
-}
 
 /* global fieldProperties, setAnswer, goToNextField, getPluginParameter, setMetaData */
 
@@ -200,7 +132,7 @@ if (noButton == null) {
 
 var warningTemplate = getPluginParameter('warning')
 if (warningTemplate == null) {
-  warningTemplate = 'Warning: This field already has a value of "${oldValue}". Are you sure you would like to replace this with "${replacementValue}"?'
+   warningTemplate = 'Warning: This field already has a value of "${oldValue}". Are you sure you would like to replace this with "${replacementValue}"?'
 } else {
   warningTemplate = warningTemplate.replace('oldValue', '${oldValue}')
   warningTemplate = warningTemplate.replace('replacementValue', '${replacementValue}')
@@ -239,4 +171,74 @@ input.oninput = function () {
   }
   setMetaData('')
   setAnswer(currentAnswer)
+}
+
+function buttonFontAdjuster (button) { // djusts size of the text of the buttons in case the text is too long
+  var fontSize = parseInt(window.getComputedStyle(button, null).getPropertyValue('font-size'))
+  let stopper = 50
+  while (button.scrollHeight > button.clientHeight) {
+    fontSize--
+    button.style.fontSize = fontSize + 'px'
+    stopper--
+    if (stopper <= 0) {
+      return
+    }
+  }
+}
+
+function clearAnswer () {
+  input.value = ''
+  setMetaData('')
+  setAnswer('')
+}
+
+function setFocus () {
+  input.focus()
+
+  if (!fieldProperties.READONLY) {
+    if (window.showSoftKeyboard) {
+      window.showSoftKeyboard()
+    }
+  }
+}
+
+function cursorToEnd (el) { // oves cursor to end of text in text box (incondistent in non-text fields)
+  if (typeof el.selectionStart === 'number') {
+    el.selectionStart = el.selectionEnd = el.value.length
+  } else if (typeof el.createTextRange !== 'undefined') {
+    el.focus()
+    var range = el.createTextRange()
+    range.collapse(false)
+    range.select()
+  }
+}
+
+function handleConstraintMessage (message) {
+  formGroup.classList.add('has-error')
+  controlMessage.innerHTML = message
+  setFocus()
+}
+
+function handleRequiredMessage (message) {
+  handleConstraintMessage(message)
+}
+
+function dispWarning (clickedLabel, clickedValue) { // Displays the warning when tapping a button when there is already content in the text box
+  oldValue = input.value
+  replacementValue = clickedLabel
+
+  let warningMessage = new Function('return `' + warningTemplate + '`')() // Takes the string template, and turns it into an actual template.
+  warningMessage += `<br><button id="yes" class="whitebutton" dir="auto">${yesButton}</button><button id="no" class="bluebutton" dir="auto">${noButton}</button>` // Adds on the "Yes" and "No" buttons
+
+  warningContainer.innerHTML = warningMessage
+
+  document.querySelector('#yes').addEventListener('click', function () {
+    setMetaData(clickedLabel)
+    setAnswer(clickedValue)
+    goToNextField()
+  })
+
+  document.querySelector('#no').addEventListener('click', function () {
+    warningContainer.innerHTML = null
+  })
 }
