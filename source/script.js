@@ -1,128 +1,3 @@
-/* var fieldProperties = {
-  METADATA: '',
-  LABEL: 'This is a label',
-  HINT: 'This is a hint',
-  PARAMETERS: [
-    {
-      key: 'button1',
-      value: "I don't know"
-    },
-    {
-      key: 'value1',
-      value: '1'
-    },
-    {
-      key: 'button2',
-      value: 'Refused'
-    },
-    {
-      key: 'value2',
-      value: '2'
-    }
-  ],
-  FIELDTYPE: 'text',
-  APPEARANCE: '',
-  LANGUAGE: 'english'
-}
-
-function setAnswer (ans) {
-  console.log('Set answer to: ' + ans)
-}
-
-function setMetaData (string) {
-  fieldProperties.METADATA = string
-}
-
-function getMetaData () {
-  return fieldProperties.METADATA
-}
-
-function getPluginParameter (param) {
-  for (const p of fieldProperties.PARAMETERS) {
-    const key = p.key
-    if (key == param) {
-      return p.value
-    }
-  }
-}
-
-function goToNextField () {
-  console.log('Skipped to next field')
-}
-
-// document.body.classList.add('android-collect')
-// Above for testing only */
-
-function buttonFontAdjuster (button) { // djusts size of the text of the buttons in case the text is too long
-  var fontSize = parseInt(window.getComputedStyle(button, null).getPropertyValue('font-size'))
-  let stopper = 50
-  while (button.scrollHeight > button.clientHeight) {
-    fontSize--
-    button.style.fontSize = fontSize + 'px'
-    stopper--
-    if (stopper <= 0) {
-      return
-    }
-  }
-}
-
-function clearAnswer () {
-  input.value = ''
-  setMetaData('')
-  setAnswer('')
-}
-
-function setFocus () {
-  input.focus()
-
-  if (!fieldProperties.READONLY) {
-    if (window.showSoftKeyboard) {
-      window.showSoftKeyboard()
-    }
-  }
-}
-
-function cursorToEnd (el) { // oves cursor to end of text in text box (incondistent in non-text fields)
-  if (typeof el.selectionStart === 'number') {
-    el.selectionStart = el.selectionEnd = el.value.length
-  } else if (typeof el.createTextRange !== 'undefined') {
-    el.focus()
-    var range = el.createTextRange()
-    range.collapse(false)
-    range.select()
-  }
-}
-
-function handleConstraintMessage (message) {
-  formGroup.classList.add('has-error')
-  controlMessage.innerHTML = message
-  setFocus()
-}
-
-function handleRequiredMessage (message) {
-  handleConstraintMessage(message)
-}
-
-function dispWarning (clickedLabel, clickedValue) { // Displays the warning when tapping a button when there is already content in the text box
-  oldValue = input.value
-  replacementValue = clickedLabel
-
-  let warningMessage = new Function('return `' + warningTemplate + '`')() // Takes the string template, and turns it into an actual template.
-  warningMessage += `<br><button id="yes" class="whitebutton" dir="auto">${yesButton}</button><button id="no" class="bluebutton" dir="auto">${noButton}</button>` // Adds on the "Yes" and "No" buttons
-
-  warningContainer.innerHTML = warningMessage
-
-  document.querySelector('#yes').addEventListener('click', function () {
-    setMetaData(clickedLabel)
-    setAnswer(clickedValue)
-    goToNextField()
-  })
-
-  document.querySelector('#no').addEventListener('click', function () {
-    warningContainer.innerHTML = null
-  })
-}
-
 /* global fieldProperties, setAnswer, goToNextField, getPluginParameter, setMetaData */
 
 var input = document.querySelector('#field')
@@ -239,4 +114,74 @@ input.oninput = function () {
   }
   setMetaData('')
   setAnswer(currentAnswer)
+}
+
+function buttonFontAdjuster (button) { // djusts size of the text of the buttons in case the text is too long
+  var fontSize = parseInt(window.getComputedStyle(button, null).getPropertyValue('font-size'))
+  let stopper = 50
+  while (button.scrollHeight > button.clientHeight) {
+    fontSize--
+    button.style.fontSize = fontSize + 'px'
+    stopper--
+    if (stopper <= 0) {
+      return
+    }
+  }
+}
+
+function clearAnswer () {
+  input.value = ''
+  setMetaData('')
+  setAnswer('')
+}
+
+function setFocus () {
+  input.focus()
+
+  if (!fieldProperties.READONLY) {
+    if (window.showSoftKeyboard) {
+      window.showSoftKeyboard()
+    }
+  }
+}
+
+function cursorToEnd (el) { // oves cursor to end of text in text box (incondistent in non-text fields)
+  if (typeof el.selectionStart === 'number') {
+    el.selectionStart = el.selectionEnd = el.value.length
+  } else if (typeof el.createTextRange !== 'undefined') {
+    el.focus()
+    var range = el.createTextRange()
+    range.collapse(false)
+    range.select()
+  }
+}
+
+function handleConstraintMessage (message) {
+  formGroup.classList.add('has-error')
+  controlMessage.innerHTML = message
+  setFocus()
+}
+
+function handleRequiredMessage (message) {
+  handleConstraintMessage(message)
+}
+
+function dispWarning (clickedLabel, clickedValue) { // Displays the warning when tapping a button when there is already content in the text box
+  oldValue = input.value
+  replacementValue = clickedLabel
+
+  let warningMessage = new Function('return `' + warningTemplate + '`')() // Takes the string template, and turns it into an actual template.
+  warningMessage += `<br><button id="yes" class="whitebutton" dir="auto">${yesButton}</button><button id="no" class="bluebutton" dir="auto">${noButton}</button>` // Adds on the "Yes" and "No" buttons
+
+  warningContainer.innerHTML = warningMessage
+
+  document.querySelector('#yes').addEventListener('click', function () {
+    setMetaData(clickedLabel)
+    setAnswer(clickedValue)
+    goToNextField()
+  })
+
+  document.querySelector('#no').addEventListener('click', function () {
+    warningContainer.innerHTML = null
+  })
 }
