@@ -25,32 +25,27 @@ This field plug-in also inherits functionality from the [baseline-text](https://
 
 [![Download now](extras/download-button.png)](https://github.com/surveycto/extra-buttons/raw/master/extrabuttons.fieldplugin.zip)
 
-## Default SurveyCTO feature support
+### Feature list
 
-| Feature / Property | Support |
-| --- | --- |
-| Supported field type(s) | `text`, `integer`, `decimal`|
-| Default values | Yes |
-| Custom constraint message | Yes |
-| Custom required message | Yes |
-| Read only | Yes |
-| media:image | Yes |
-| media:audio | Yes |
-| media:video | Yes |
-| `number` appearance | Yes |
-| `numbers_decimal` appearance | Yes |
-| `numbers_phone` appearance | Yes |
-| `show_formatted` appearance | Yes |
+* Add extra buttons to *text*, *integer*, and/or *decimal* field.
+* Customize button value and text
+* Add as many buttons as needed
+
+### Data format
+
+If a button is not used, then the data will be whatever is in the text box. When a button is used (and confirmed if applicable), then the value of that button (as specified in the parameters) is set as the field value.
+
+You can also retrieve the label of the button selected using the SurveyCTO plug-in-metadata() function.
 
 ## How to use
 
-**To use this field plug-in as-is:**
+### Getting started
 
 1. Download the [sample form](extras/sample-form) from this repo and upload it to your SurveyCTO server.
 1. Download the [extrabuttons.fieldplugin.zip](https://github.com/surveycto/extra-buttons/raw/master/extrabuttons.fieldplugin.zip) file from this repo, and attach it to the sample form on your SurveyCTO server.
 1. Adjust the parameter if you would like to use a different unit (see below).
 
-## Parameters
+### Parameters
 
 For each extra button you would like to add, you will need a label, called "button", and a "value". For the parameter name, take the parameter name, and add the button number. For example, the parameter for the label of the first button will be `button1`, the parameter for the label of the second button will be `button2`, and so on. The parameter for the value for the first button will be `value1`, the parameter for the value of the second button will be `value2`, and so on. So, if you wanted one button with the label "I don't know" and a value of `-99`, and another button with a label of "Refused" and a value of -88, you would use this *appearance*:
 
@@ -75,6 +70,23 @@ You can also add `oldValue` to the warning to show where the current value of th
     value1=-99,
     button2='Refused',
     value2=-88)
+
+### Default SurveyCTO feature support
+
+| Feature / Property | Support |
+| --- | --- |
+| Supported field type(s) | `text`, `integer`, `decimal`|
+| Default values | Yes |
+| Custom constraint message | Yes |
+| Custom required message | Yes |
+| Read only | Yes |
+| media:image | Yes |
+| media:audio | Yes |
+| media:video | Yes |
+| `number` appearance | Yes |
+| `numbers_decimal` appearance | Yes |
+| `numbers_phone` appearance | Yes |
+| `show_formatted` appearance | Yes |
 
 ## More resources
 
