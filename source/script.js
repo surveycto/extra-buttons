@@ -34,10 +34,10 @@ if (fieldType === 'integer') {
 }
 
 for (let buttonNumber = 1; buttonNumber <= 100; buttonNumber++) {
-  const buttonLabel = getPluginParameter('button' + String(buttonNumber))
-  const buttonValue = getPluginParameter('value' + String(buttonNumber))
+  var buttonLabel = getPluginParameter('button' + String(buttonNumber))
+  var buttonValue = getPluginParameter('value' + String(buttonNumber))
   if ((buttonLabel != null) && (buttonValue != null)) {
-    const buttonHtml = '<button id="' + buttonLabel + '" class="altbutton button' + (((buttonNumber + 1) / 2 % 2) + 1) + '" value="' + buttonValue + '" dir="auto">' + buttonLabel + '</button>'
+    var buttonHtml = '<button id="' + buttonLabel + '" class="altbutton button' + (((buttonNumber + 1) / 2 % 2) + 1) + '" value="' + buttonValue + '" dir="auto">' + buttonLabel + '</button>'
     buttonsDisp += buttonHtml
     altValues.push(buttonValue)
   }
@@ -45,13 +45,13 @@ for (let buttonNumber = 1; buttonNumber <= 100; buttonNumber++) {
 
 buttonContainer.innerHTML = buttonsDisp
 var allButtons = document.querySelectorAll('#buttons button')
-for (const button of allButtons) {
+for (var button of allButtons) {
   buttonFontAdjuster(button)
   if (!fieldProperties.READONLY) {
     button.addEventListener('click', function () { // Adds event listener to buttons
-      const clickedLabel = button.innerHTML
-      const clickedValue = button.value
-      const currentInput = input.value
+      var clickedLabel = button.innerHTML
+      var clickedValue = button.value
+      var currentInput = input.value
       if ((currentInput === '') || (currentInput == null) || (altValues.indexOf(currentInput) !== -1)) {
         setMetaData(clickedLabel)
         setAnswer(clickedValue)
@@ -84,16 +84,16 @@ if (warningTemplate == null) {
 input.oninput = function () {
   formGroup.classList.remove('has-error')
   controlMessage.innerHTML = ''
-  const currentAnswer = input.value
+  var currentAnswer = input.value
 
   if (appearance.includes('show_formatted')) {
-    const ansString = currentAnswer.toString()
-    const pointLoc = currentAnswer.indexOf('.')
+    var ansString = currentAnswer.toString()
+    var pointLoc = currentAnswer.indexOf('.')
 
     if (pointLoc === -1) {
       formattedSpan.innerHTML = ansString.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     } else {
-      const beforePoint = ansString.substring(0, pointLoc).replace(/\B(?=(\d{3})+(?!\d))/g, ',') // efore the decimal point
+      var beforePoint = ansString.substring(0, pointLoc).replace(/\B(?=(\d{3})+(?!\d))/g, ',') // efore the decimal point
 
       // The part below adds commas to the numbers after the decimal point. Unfortunately, a lookbehind assersion breaks the JS in iOS right now, so this has been commented out for now.
       /* let midPoint = answer.substring(pointLoc + 1, pointLoc + 3) // he first two digits after the decimal point this is because the first two digits after the decimal point are the "tenths" and "hundredths", while after that is "thousandths"
@@ -106,8 +106,8 @@ input.oninput = function () {
           total += ',' + afterPoint
         }
       } */
-      const afterPoint = ansString.substring(pointLoc, ansString.length)
-      const total = beforePoint + afterPoint
+      var afterPoint = ansString.substring(pointLoc, ansString.length)
+      var total = beforePoint + afterPoint
 
       formattedSpan.innerHTML = total
     }
