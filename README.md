@@ -8,7 +8,7 @@
 
 ## Description
 
-*Requires at least Android 7 or iOS 13 to work in SurveyCTO Collect mobile.*
+*Requires at least Android 7 or iOS 13 to work on SurveyCTO Collect.*
 
 *There were recent updates to the field plug-in paramters. If you are already using an older version of this field plug-in (before 1.2.0), and you would like to use the newer version, you will have to update your parameters in the* appearance *property of your field(s). See **Parameters** below for more details.*
 
@@ -25,7 +25,7 @@ This field plug-in also inherits functionality from the [baseline-text](https://
 
 [![Download now](extras/download-button.png)](https://github.com/surveycto/extra-buttons/raw/master/extrabuttons.fieldplugin.zip)
 
-### Feature list
+### Features
 
 * Add extra buttons to *text*, *integer*, and/or *decimal* field.
 * Customize button value and text
