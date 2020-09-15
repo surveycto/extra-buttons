@@ -75,7 +75,7 @@ if (noButton == null) {
 
 var warningTemplate = getPluginParameter('warning')
 if (warningTemplate == null) {
-   warningTemplate = 'Warning: This field already has a value of "${oldValue}". Are you sure you would like to replace this with "${replacementValue}"?'
+  warningTemplate = 'Warning: This field already has a value of "${oldValue}". Are you sure you would like to replace this with "${replacementValue}"?'
 } else {
   warningTemplate = warningTemplate.replace('oldValue', '${oldValue}')
   warningTemplate = warningTemplate.replace('replacementValue', '${replacementValue}')
