@@ -38,6 +38,8 @@ for (var buttonNumber = 1; buttonNumber <= 100; buttonNumber++) {
     var buttonHtml = '<button id="' + buttonLabel + '" class="altbutton button' + (((buttonNumber + 1) / 2 % 2) + 1) + '" value="' + buttonValue + '" dir="auto">' + buttonLabel + '</button>'
     buttonsDisp += buttonHtml
     altValues.push(buttonValue)
+  } else {
+    break // Stop looking for buttons when number in parameter name is not found
   }
 }
 
