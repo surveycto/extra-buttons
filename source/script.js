@@ -11,8 +11,6 @@ var fieldType = fieldProperties.FIELDTYPE
 var appearance = fieldProperties.APPEARANCE
 var altValues = []
 var buttonsDisp = ''
-var oldValue
-var replacementValue
 
 if (fieldType === 'integer') {
   input.inputmode = 'numeric'
@@ -166,9 +164,6 @@ function handleRequiredMessage (message) {
 }
 
 function dispWarning (clickedLabel, clickedValue) { // Displays the warning when tapping a button when there is already content in the text box
-  oldValue = input.value
-  replacementValue = clickedLabel
-
   warningContainer.innerHTML = warningMessage
 
   document.querySelector('#yes').addEventListener('click', function () {
