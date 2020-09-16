@@ -45,7 +45,9 @@ for (let buttonNumber = 1; buttonNumber <= 100; buttonNumber++) {
 
 buttonContainer.innerHTML = buttonsDisp
 var allButtons = document.querySelectorAll('#buttons button')
-for (var button of allButtons) {
+var numButtons = allButtons.length
+for (var b = 0; b < numButtons; b++) {
+  var button = allButtons[b]
   buttonFontAdjuster(button)
   if (!fieldProperties.READONLY) {
     button.addEventListener('click', function () { // Adds event listener to buttons
