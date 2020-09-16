@@ -1,3 +1,9 @@
+var messageContainer = document.querySelector('#messages')
+
+function logger(message) {
+  messageContainer.innerHTML += '<br>\n' + message
+}
+
 /* global fieldProperties, setAnswer, goToNextField, getPluginParameter, setMetaData */
 
 var input = document.querySelector('#field')
@@ -12,6 +18,8 @@ var appearance = fieldProperties.APPEARANCE
 var altValues = []
 var buttonsDisp = ''
 
+logger('vars declared')
+
 if (fieldType === 'integer') {
   input.inputmode = 'numeric'
   input.type = 'number'
@@ -19,17 +27,19 @@ if (fieldType === 'integer') {
   input.inputmode = 'decimal'
   input.type = 'number'
 } else if (fieldType === 'text') {
-  if (appearance.includes('numbers_phone')) {
+  if (appearance.indexOf('numbers_phone') !== -1) {
     input.inputmode = 'tel'
     input.type = 'tel'
-  } else if (appearance.includes('numbers_decimal')) {
+  } else if (appearance.indexOf('numbers_decimal') !== -1) {
     input.inputmode = 'decimal'
     input.type = 'number'
-  } else if (appearance.includes('numbers')) {
+  } else if (appearance.indexOf('numbers') !== -1) {
     input.inputmode = 'numeric'
     input.type = 'number'
   }
 }
+
+logger('Appearance retrieved')
 
 for (var buttonNumber = 1; buttonNumber <= 100; buttonNumber++) {
   var buttonLabel = getPluginParameter('button' + String(buttonNumber))
@@ -43,9 +53,14 @@ for (var buttonNumber = 1; buttonNumber <= 100; buttonNumber++) {
   }
 }
 
+logger('Retrieved button info.')
+
 buttonContainer.innerHTML = buttonsDisp
 var allButtons = document.querySelectorAll('#buttons button')
 var numButtons = allButtons.length
+
+logger('There are ' + String(numButtons) + ' buttons.')
+
 for (var b = 0; b < numButtons; b++) {
   var button = allButtons[b]
   buttonFontAdjuster(button)
@@ -65,6 +80,8 @@ for (var b = 0; b < numButtons; b++) {
   }
 }
 
+logger('Populated buttons')
+
 var yesButton = getPluginParameter('yes')
 if (yesButton == null) {
   yesButton = 'Yes'
@@ -80,12 +97,16 @@ if (warningMessage == null) {
   warningMessage = 'Warning: This field already has a value. Are you sure you would like to replace it?'
 }
 
+logger('Other info in')
+
 input.oninput = function () {
+  logger('Input detected')
   formGroup.classList.remove('has-error')
   controlMessage.innerHTML = ''
   var currentAnswer = input.value
 
-  if (appearance.includes('show_formatted')) {
+  logger('Stuff established')
+  if (appearance.indexOf('show_formatted') !== -1) {
     var ansString = currentAnswer.toString()
     var pointLoc = currentAnswer.indexOf('.')
 
@@ -111,8 +132,10 @@ input.oninput = function () {
       formattedSpan.innerHTML = total
     }
   }
+  logger('About to set stuff')
   setMetaData('')
   setAnswer(currentAnswer)
+  logger('Answer set')
 }
 
 function buttonFontAdjuster (button) { // djusts size of the text of the buttons in case the text is too long
