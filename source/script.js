@@ -26,7 +26,7 @@ if (fieldType === 'integer') {
   input.type = 'number'
   specialConstraint = new RegExp('^-?([0-9]+.?[0-9]*)|([0-9]*.?[0-9]+)$')
   invalidBox.innerHTML = 'Invalid: Answer must be a valid decimal number.'
-} else if (fieldType === 'text') {
+} else { // All that should be left is "text"
   if (appearance.indexOf('numbers_phone') !== -1) {
     input.inputmode = 'tel'
     input.type = 'tel'
@@ -42,9 +42,9 @@ if (fieldType === 'integer') {
     input.type = 'number'
     specialConstraint = new RegExp('^[0-9-+. ]+$')
     invalidBox.innerHTML = 'Invalid: Answer can only contain numbers, hyphens (-), plus signs (+), dots (.), and/or spaces.'
+  } else {
+    specialConstraint = new RegExp('.+')
   }
-} else {
-  specialConstraint = new RegExp('.+')
 }
 
 for (var buttonNumber = 1; buttonNumber <= 100; buttonNumber++) {
