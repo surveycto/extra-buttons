@@ -1,35 +1,34 @@
 # Extra button
 
-![Category buttons](extras/extra-buttons.png)
+![Category buttons](extras/readme-images/extra-buttons.png)
 
-|<img src="extras/warning-message.png" width="100px">|
+|<img src="extras/readme-images/warning-message.png" width="100px">|
 |:---:|
 |Warning|
 
 ## Description
 
-*Requires at least Android 7 or iOS 13 to work on SurveyCTO Collect.*
-
-*There were recent updates to the field plug-in paramters. If you are already using an older version of this field plug-in (before 1.2.0), and you would like to use the newer version, you will have to update your parameters in the* appearance *property of your field(s). See **Parameters** below for more details.*
+*There were recent updates to the field plug-in paramters. If you are already using an older version of this field plug-in (before 1.2.0), and you would like to use the newer version, you will have to update your parameters in the* appearance *property of your field(s). See [parameters](#parameters) below for more details.*
 
 Use this field plug-in to add extra buttons to your text, integer, or decimal field. When a button is selected, the field will automatically advance. If there is already something in the text box when pressing a button, a warning message will confirm if you would like to replace what you already have.
 
 You can specify exactly what each button says, and what its value should be (for example, you can specify that when "I don't know" is selected, then the field has a value of -99). You can use the parameters to specify as many buttons as you would like. The label of the button selected will be stored in the metadata for that field.
 
 The default warning message is:
->Warning: This field already has a value of "[old value]". Are you sure you would like to replace this with "[replacement]"?
+>Warning: This field already has a value. Are you sure you would like to replace it?
 
-However, it can be customized using the **Parameters** (see below).
+However, it can be customized using the [parameters](#parameters).
 
 This field plug-in also inherits functionality from the [baseline-text](https://github.com/surveycto/baseline-text), [baseline-integer](https://github.com/surveycto/baseline-integer), and [baseline-decimal](https://github.com/surveycto/baseline-decimal) field plug-ins.
 
-[![Download now](extras/download-button.png)](https://github.com/surveycto/extra-buttons/raw/master/extrabuttons.fieldplugin.zip)
+[![Download now](extras/readme-images/download-button.png)](https://github.com/surveycto/extra-buttons/raw/master/extrabuttons.fieldplugin.zip)
 
 ### Features
 
 * Add extra buttons to *text*, *integer*, and/or *decimal* field.
 * Customize button value and text
 * Add as many buttons as needed
+* Warning if button pressed when field has a value
 
 ### Data format
 
@@ -41,7 +40,7 @@ You can also retrieve the label of the button selected using the SurveyCTO plug-
 
 ### Getting started
 
-1. Download the [sample form](extras/sample-form) from this repo and upload it to your SurveyCTO server.
+1. Download the [sample form](extras/readme-images/sample-form) from this repo and upload it to your SurveyCTO server.
 1. Download the [extrabuttons.fieldplugin.zip](https://github.com/surveycto/extra-buttons/raw/master/extrabuttons.fieldplugin.zip) file from this repo, and attach it to the sample form on your SurveyCTO server.
 1. Adjust the parameter if you would like to use a different unit (see below).
 
@@ -61,9 +60,7 @@ You can also customize the error message that appears when an enumerator selects
 `yes`: What will be displayed instead of "Yes" in the confirmation.<br>
 `no`: What will be displayed instead of "No" in the confirmation.
 
-You can also add `oldValue` to the warning to show where the current value of the field will go, and `replacementValue` to show where the button label will go in the warning message.
-
-    custom-extrabuttons(warning='Voulez-vous vraiment remplacer "oldValue" par "replacementValue"?',
+    custom-extrabuttons(warning='Attention: ce champ a déjà une valeur. Etes-vous sûr de vouloir le remplacer?',
     yes='Oui',
     no='Non',
     button1="I don't know",
@@ -91,7 +88,7 @@ You can also add `oldValue` to the warning to show where the current value of th
 ## More resources
 
 * **Sample form**  
-You can find a form definition in this repo here: [extras/sample-form](extras/sample-form).
+You can find a form definition in this repo here: [extras/readme-images/sample-form](extras/readme-images/sample-form).
 
 * **Developer documentation**  
 More instructions for developing and using field plug-ins can be found here: [https://github.com/surveycto/Field-plug-in-resources](https://github.com/surveycto/Field-plug-in-resources)
