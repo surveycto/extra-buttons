@@ -6,6 +6,8 @@ var controlMessage = document.querySelector('.control-message')
 var formattedSpan = document.querySelector('#formatted')
 var buttonContainer = document.querySelector('#buttons')
 var warningContainer = document.querySelector('#warning')
+var yesButton = document.querySelector('#yes')
+var noButton = document.querySelector('#no')
 var invalidBox = document.querySelector('.error-box')
 
 var fieldType = fieldProperties.FIELDTYPE
@@ -82,14 +84,14 @@ for (var b = 0; b < numButtons; b++) {
   }
 }
 
-var yesButton = getPluginParameter('yes')
-if (yesButton == null) {
-  yesButton = 'Yes'
+var yesButtonText = getPluginParameter('yes')
+if (yesButtonText != null) {
+  yesButton.innerHTML = yesButtonText
 }
 
-var noButton = getPluginParameter('no')
-if (noButton == null) {
-  noButton = 'No'
+var noButtonText = getPluginParameter('no')
+if (noButtonText != null) {
+  noButton.innerHTML = noButtonText
 }
 
 var warningMessage = getPluginParameter('warning')
