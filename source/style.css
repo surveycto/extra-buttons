@@ -127,3 +127,11 @@ button.bluebutton{
     border-color: #f56954!important;
     box-shadow: none;
 }
+
+.error-box {
+    background: #f56954;
+    display: block;
+    width: 96%;
+    color: #FFF;
+    padding: 5px 10px;
+}

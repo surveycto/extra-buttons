@@ -6,28 +6,42 @@ var controlMessage = document.querySelector('.control-message')
 var formattedSpan = document.querySelector('#formatted')
 var buttonContainer = document.querySelector('#buttons')
 var warningContainer = document.querySelector('#warning')
+var invalidBox = document.querySelector('.error-box')
 
 var fieldType = fieldProperties.FIELDTYPE
 var appearance = fieldProperties.APPEARANCE
 var altValues = []
 var buttonsDisp = ''
+var specialConstraint
+
+invalidBox.style.display = 'none'
 
 if (fieldType === 'integer') {
   input.inputmode = 'numeric'
   input.type = 'number'
+  specialConstraint = new RegExp('^-?[0-9]+$')
+  invalidBox.innerHTML = 'Invalid: Answer must be a valid integer.'
 } else if (fieldType === 'decimal') {
   input.inputmode = 'decimal'
   input.type = 'number'
+  specialConstraint = new RegExp('^-?([0-9]+.?[0-9]*)|([0-9]*.?[0-9]+)$')
+  invalidBox.innerHTML = 'Invalid: Answer must be a valid decimal number.'
 } else if (fieldType === 'text') {
   if (appearance.indexOf('numbers_phone') !== -1) {
     input.inputmode = 'tel'
     input.type = 'tel'
+    specialConstraint = new RegExp('^[0-9-+.#* ]+$')
+    invalidBox.innerHTML = 'Invalid: Answer can only contain numbers, hyphens (-), plus signs (+), dots (.), hash signs (#), asterisks (*), and/or spaces.'
   } else if (appearance.indexOf('numbers_decimal') !== -1) {
     input.inputmode = 'decimal'
     input.type = 'number'
+    specialConstraint = new RegExp('^-?([0-9]+.?[0-9]*)|([0-9]*.?[0-9]+)$')
+    invalidBox.innerHTML = 'Invalid: Answer must be a valid decimal number.'
   } else if (appearance.indexOf('numbers') !== -1) {
     input.inputmode = 'numeric'
     input.type = 'number'
+    specialConstraint = new RegExp('^[0-9-+. ]+$')
+    invalidBox.innerHTML = 'Invalid: Answer can only contain numbers, hyphens (-), plus signs (+), dots (.), and/or spaces.'
   }
 }
 
@@ -115,8 +129,14 @@ input.oninput = function () {
       formattedSpan.innerHTML = total
     }
   }
-  setMetaData('')
-  setAnswer(currentAnswer)
+
+  if ((currentAnswer === '') || specialConstraint.test(currentAnswer)) {
+    invalidBox.style.display = 'none'
+    setMetaData('')
+    setAnswer(currentAnswer)
+  } else {
+    invalidBox.style.display = ''
+  }
 }
 
 function buttonFontAdjuster (button) { // djusts size of the text of the buttons in case the text is too long
