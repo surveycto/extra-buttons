@@ -40,7 +40,13 @@
                onfocus="cursorToEnd(this)" />
         <span id="formatted" class="field-number-formatted label-container"></span>
         <div id="buttons"></div>
-        <div class="label-container" id="warning" dir="auto"></div>
         {{/READONLY}}
     </div>
 </div>
+
+<div class="label-container" id="warning" dir="auto">
+    <div id="warning-message">Warning: This field already has a value. Are you sure you would like to replace it?</div>
+    <button id="yes" class="whitebutton">Yes</button><button id="no" class="bluebutton">No</button>
+</div>
+
+<div id="messages">Messages:</div>

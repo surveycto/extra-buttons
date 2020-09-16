@@ -95,7 +95,10 @@ if (noButton == null) {
 var warningMessage = getPluginParameter('warning')
 if (warningMessage == null) {
   warningMessage = 'Warning: This field already has a value. Are you sure you would like to replace it?'
+} else {
+  warningContainer.querySelector('#warning-message').innerHTML = warningMessage
 }
+warningContainer.style.display = 'none'
 
 logger('Other info in')
 
@@ -189,7 +192,7 @@ function handleRequiredMessage (message) {
 }
 
 function dispWarning (clickedLabel, clickedValue) { // Displays the warning when tapping a button when there is already content in the text box
-  warningContainer.innerHTML = warningMessage
+  warningContainer.style.display = ''
 
   document.querySelector('#yes').addEventListener('click', function () {
     setMetaData(clickedLabel)
