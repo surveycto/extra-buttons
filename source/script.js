@@ -43,6 +43,8 @@ if (fieldType === 'integer') {
     specialConstraint = new RegExp('^[0-9-+. ]+$')
     invalidBox.innerHTML = 'Invalid: Answer can only contain numbers, hyphens (-), plus signs (+), dots (.), and/or spaces.'
   }
+} else {
+  specialConstraint = new RegExp('.+')
 }
 
 for (var buttonNumber = 1; buttonNumber <= 100; buttonNumber++) {
