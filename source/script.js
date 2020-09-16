@@ -75,12 +75,9 @@ if (noButton == null) {
   noButton = 'No'
 }
 
-var warningTemplate = getPluginParameter('warning')
-if (warningTemplate == null) {
-  warningTemplate = 'Warning: This field already has a value of "${oldValue}". Are you sure you would like to replace this with "${replacementValue}"?'
-} else {
-  warningTemplate = warningTemplate.replace('oldValue', '${oldValue}')
-  warningTemplate = warningTemplate.replace('replacementValue', '${replacementValue}')
+var warningMessage = getPluginParameter('warning')
+if (warningMessage == null) {
+  warningMessage = 'Warning: This field already has a value. Are you sure you would like to replace it?'
 }
 
 input.oninput = function () {
@@ -171,9 +168,6 @@ function handleRequiredMessage (message) {
 function dispWarning (clickedLabel, clickedValue) { // Displays the warning when tapping a button when there is already content in the text box
   oldValue = input.value
   replacementValue = clickedLabel
-
-  var warningMessage = new Function('return `' + warningTemplate + '`')() // Takes the string template, and turns it into an actual template.
-  warningMessage += `<br><button id="yes" class="whitebutton" dir="auto">${yesButton}</button><button id="no" class="bluebutton" dir="auto">${noButton}</button>` // Adds on the "Yes" and "No" buttons
 
   warningContainer.innerHTML = warningMessage
 
