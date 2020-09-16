@@ -33,7 +33,7 @@ if (fieldType === 'integer') {
   }
 }
 
-for (let buttonNumber = 1; buttonNumber <= 100; buttonNumber++) {
+for (var buttonNumber = 1; buttonNumber <= 100; buttonNumber++) {
   var buttonLabel = getPluginParameter('button' + String(buttonNumber))
   var buttonValue = getPluginParameter('value' + String(buttonNumber))
   if ((buttonLabel != null) && (buttonValue != null)) {
@@ -98,9 +98,9 @@ input.oninput = function () {
       var beforePoint = ansString.substring(0, pointLoc).replace(/\B(?=(\d{3})+(?!\d))/g, ',') // efore the decimal point
 
       // The part below adds commas to the numbers after the decimal point. Unfortunately, a lookbehind assersion breaks the JS in iOS right now, so this has been commented out for now.
-      /* let midPoint = answer.substring(pointLoc + 1, pointLoc + 3) // he first two digits after the decimal point this is because the first two digits after the decimal point are the "tenths" and "hundredths", while after that is "thousandths"
-      let afterPoint = answer.substring(pointLoc + 3, answer.length).replace(/\B(?<=(^(\d{3})+))/g, ",") // fter the first two digits after the decimal point
-      let total = beforePoint
+      /* var midPoint = answer.substring(pointLoc + 1, pointLoc + 3) // he first two digits after the decimal point this is because the first two digits after the decimal point are the "tenths" and "hundredths", while after that is "thousandths"
+      var afterPoint = answer.substring(pointLoc + 3, answer.length).replace(/\B(?<=(^(\d{3})+))/g, ",") // fter the first two digits after the decimal point
+      var total = beforePoint
 
       if (midPoint != '') { // dds the decimal point only if it is needed
         total += '.' + midPoint
@@ -120,7 +120,7 @@ input.oninput = function () {
 
 function buttonFontAdjuster (button) { // djusts size of the text of the buttons in case the text is too long
   var fontSize = parseInt(window.getComputedStyle(button, null).getPropertyValue('font-size'))
-  let stopper = 50
+  var stopper = 50
   while (button.scrollHeight > button.clientHeight) {
     fontSize--
     button.style.fontSize = fontSize + 'px'
@@ -172,7 +172,7 @@ function dispWarning (clickedLabel, clickedValue) { // Displays the warning when
   oldValue = input.value
   replacementValue = clickedLabel
 
-  let warningMessage = new Function('return `' + warningTemplate + '`')() // Takes the string template, and turns it into an actual template.
+  var warningMessage = new Function('return `' + warningTemplate + '`')() // Takes the string template, and turns it into an actual template.
   warningMessage += `<br><button id="yes" class="whitebutton" dir="auto">${yesButton}</button><button id="no" class="bluebutton" dir="auto">${noButton}</button>` // Adds on the "Yes" and "No" buttons
 
   warningContainer.innerHTML = warningMessage
