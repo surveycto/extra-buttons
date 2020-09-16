@@ -201,6 +201,6 @@ function dispWarning (clickedLabel, clickedValue) { // Displays the warning when
   })
 
   document.querySelector('#no').addEventListener('click', function () {
-    warningContainer.innerHTML = null
+    warningContainer.style.display = 'none'
   })
 }
