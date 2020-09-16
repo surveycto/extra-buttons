@@ -1,9 +1,3 @@
-var messageContainer = document.querySelector('#messages')
-
-function logger(message) {
-  messageContainer.innerHTML += '<br>\n' + message
-}
-
 /* global fieldProperties, setAnswer, goToNextField, getPluginParameter, setMetaData */
 
 var input = document.querySelector('#field')
@@ -17,8 +11,6 @@ var fieldType = fieldProperties.FIELDTYPE
 var appearance = fieldProperties.APPEARANCE
 var altValues = []
 var buttonsDisp = ''
-
-logger('vars declared')
 
 if (fieldType === 'integer') {
   input.inputmode = 'numeric'
@@ -39,8 +31,6 @@ if (fieldType === 'integer') {
   }
 }
 
-logger('Appearance retrieved')
-
 for (var buttonNumber = 1; buttonNumber <= 100; buttonNumber++) {
   var buttonLabel = getPluginParameter('button' + String(buttonNumber))
   var buttonValue = getPluginParameter('value' + String(buttonNumber))
@@ -53,13 +43,9 @@ for (var buttonNumber = 1; buttonNumber <= 100; buttonNumber++) {
   }
 }
 
-logger('Retrieved button info.')
-
 buttonContainer.innerHTML = buttonsDisp
 var allButtons = document.querySelectorAll('#buttons button')
 var numButtons = allButtons.length
-
-logger('There are ' + String(numButtons) + ' buttons.')
 
 for (var b = 0; b < numButtons; b++) {
   var button = allButtons[b]
@@ -80,8 +66,6 @@ for (var b = 0; b < numButtons; b++) {
   }
 }
 
-logger('Populated buttons')
-
 var yesButton = getPluginParameter('yes')
 if (yesButton == null) {
   yesButton = 'Yes'
@@ -100,15 +84,11 @@ if (warningMessage == null) {
 }
 warningContainer.style.display = 'none'
 
-logger('Other info in')
-
 input.oninput = function () {
-  logger('Input detected')
   formGroup.classList.remove('has-error')
   controlMessage.innerHTML = ''
   var currentAnswer = input.value
 
-  logger('Stuff established')
   if (appearance.indexOf('show_formatted') !== -1) {
     var ansString = currentAnswer.toString()
     var pointLoc = currentAnswer.indexOf('.')
@@ -135,10 +115,8 @@ input.oninput = function () {
       formattedSpan.innerHTML = total
     }
   }
-  logger('About to set stuff')
   setMetaData('')
   setAnswer(currentAnswer)
-  logger('Answer set')
 }
 
 function buttonFontAdjuster (button) { // djusts size of the text of the buttons in case the text is too long
