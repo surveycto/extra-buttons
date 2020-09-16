@@ -1,7 +1,7 @@
 {
 	"name" : "Extra buttons",
 	"author" : "Dobility",
-	"version": "1.2.3",
+	"version": "1.2.8",
 	"supportedFieldTypes": ["text", "integer", "decimal"],
 	"hideDefaultRequiredMessage": true,
 	"hideDefaultConstraintMessage": true
