@@ -6,52 +6,73 @@ var controlMessage = document.querySelector('.control-message')
 var formattedSpan = document.querySelector('#formatted')
 var buttonContainer = document.querySelector('#buttons')
 var warningContainer = document.querySelector('#warning')
+var yesButton = document.querySelector('#yes')
+var noButton = document.querySelector('#no')
+var invalidBox = document.querySelector('.error-box')
 
 var fieldType = fieldProperties.FIELDTYPE
 var appearance = fieldProperties.APPEARANCE
 var altValues = []
 var buttonsDisp = ''
-var oldValue
-var replacementValue
+var specialConstraint
+
+invalidBox.style.display = 'none'
 
 if (fieldType === 'integer') {
   input.inputmode = 'numeric'
   input.type = 'number'
+  specialConstraint = new RegExp('^-?[0-9]+$')
+  invalidBox.innerHTML = 'Invalid: Answer must be a valid integer.'
 } else if (fieldType === 'decimal') {
   input.inputmode = 'decimal'
   input.type = 'number'
-} else if (fieldType === 'text') {
-  if (appearance.includes('numbers_phone')) {
+  specialConstraint = new RegExp('^-?([0-9]+.?[0-9]*)|([0-9]*.?[0-9]+)$')
+  invalidBox.innerHTML = 'Invalid: Answer must be a valid decimal number.'
+} else { // All that should be left is "text"
+  if (appearance.indexOf('numbers_phone') !== -1) {
     input.inputmode = 'tel'
     input.type = 'tel'
-  } else if (appearance.includes('numbers_decimal')) {
+    specialConstraint = new RegExp('^[0-9-+.#* ]+$')
+    invalidBox.innerHTML = 'Invalid: Answer can only contain numbers, hyphens (-), plus signs (+), dots (.), hash signs (#), asterisks (*), and/or spaces.'
+  } else if (appearance.indexOf('numbers_decimal') !== -1) {
     input.inputmode = 'decimal'
     input.type = 'number'
-  } else if (appearance.includes('numbers')) {
+    specialConstraint = new RegExp('^-?([0-9]+.?[0-9]*)|([0-9]*.?[0-9]+)$')
+    invalidBox.innerHTML = 'Invalid: Answer must be a valid decimal number.'
+  } else if (appearance.indexOf('numbers') !== -1) {
     input.inputmode = 'numeric'
     input.type = 'number'
+    specialConstraint = new RegExp('^[0-9-+. ]+$')
+    invalidBox.innerHTML = 'Invalid: Answer can only contain numbers, hyphens (-), plus signs (+), dots (.), and/or spaces.'
+  } else {
+    specialConstraint = new RegExp('.+')
   }
 }
 
-for (let buttonNumber = 1; buttonNumber <= 100; buttonNumber++) {
-  const buttonLabel = getPluginParameter('button' + String(buttonNumber))
-  const buttonValue = getPluginParameter('value' + String(buttonNumber))
+for (var buttonNumber = 1; buttonNumber <= 100; buttonNumber++) {
+  var buttonLabel = getPluginParameter('button' + String(buttonNumber))
+  var buttonValue = getPluginParameter('value' + String(buttonNumber))
   if ((buttonLabel != null) && (buttonValue != null)) {
-    const buttonHtml = '<button id="' + buttonLabel + '" class="altbutton button' + (((buttonNumber + 1) / 2 % 2) + 1) + '" value="' + buttonValue + '" dir="auto">' + buttonLabel + '</button>'
+    var buttonHtml = '<button id="' + buttonLabel + '" class="altbutton button' + (((buttonNumber + 1) / 2 % 2) + 1) + '" value="' + buttonValue + '" dir="auto">' + buttonLabel + '</button>'
     buttonsDisp += buttonHtml
     altValues.push(buttonValue)
+  } else {
+    break // Stop looking for buttons when number in parameter name is not found
   }
 }
 
 buttonContainer.innerHTML = buttonsDisp
 var allButtons = document.querySelectorAll('#buttons button')
-for (const button of allButtons) {
+var numButtons = allButtons.length
+
+for (var b = 0; b < numButtons; b++) {
+  var button = allButtons[b]
   buttonFontAdjuster(button)
   if (!fieldProperties.READONLY) {
     button.addEventListener('click', function () { // Adds event listener to buttons
-      const clickedLabel = button.innerHTML
-      const clickedValue = button.value
-      const currentInput = input.value
+      var clickedLabel = button.innerHTML
+      var clickedValue = button.value
+      var currentInput = input.value
       if ((currentInput === '') || (currentInput == null) || (altValues.indexOf(currentInput) !== -1)) {
         setMetaData(clickedLabel)
         setAnswer(clickedValue)
@@ -63,42 +84,42 @@ for (const button of allButtons) {
   }
 }
 
-var yesButton = getPluginParameter('yes')
-if (yesButton == null) {
-  yesButton = 'Yes'
+var yesButtonText = getPluginParameter('yes')
+if (yesButtonText != null) {
+  yesButton.innerHTML = yesButtonText
 }
 
-var noButton = getPluginParameter('no')
-if (noButton == null) {
-  noButton = 'No'
+var noButtonText = getPluginParameter('no')
+if (noButtonText != null) {
+  noButton.innerHTML = noButtonText
 }
 
-var warningTemplate = getPluginParameter('warning')
-if (warningTemplate == null) {
-   warningTemplate = 'Warning: This field already has a value of "${oldValue}". Are you sure you would like to replace this with "${replacementValue}"?'
+var warningMessage = getPluginParameter('warning')
+if (warningMessage == null) {
+  warningMessage = 'Warning: This field already has a value. Are you sure you would like to replace it?'
 } else {
-  warningTemplate = warningTemplate.replace('oldValue', '${oldValue}')
-  warningTemplate = warningTemplate.replace('replacementValue', '${replacementValue}')
+  warningContainer.querySelector('#warning-message').innerHTML = warningMessage
 }
+warningContainer.style.display = 'none'
 
 input.oninput = function () {
   formGroup.classList.remove('has-error')
   controlMessage.innerHTML = ''
-  const currentAnswer = input.value
+  var currentAnswer = input.value
 
-  if (appearance.includes('show_formatted')) {
-    const ansString = currentAnswer.toString()
-    const pointLoc = currentAnswer.indexOf('.')
+  if (appearance.indexOf('show_formatted') !== -1) {
+    var ansString = currentAnswer.toString()
+    var pointLoc = currentAnswer.indexOf('.')
 
     if (pointLoc === -1) {
       formattedSpan.innerHTML = ansString.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     } else {
-      const beforePoint = ansString.substring(0, pointLoc).replace(/\B(?=(\d{3})+(?!\d))/g, ',') // efore the decimal point
+      var beforePoint = ansString.substring(0, pointLoc).replace(/\B(?=(\d{3})+(?!\d))/g, ',') // efore the decimal point
 
       // The part below adds commas to the numbers after the decimal point. Unfortunately, a lookbehind assersion breaks the JS in iOS right now, so this has been commented out for now.
-      /* let midPoint = answer.substring(pointLoc + 1, pointLoc + 3) // he first two digits after the decimal point this is because the first two digits after the decimal point are the "tenths" and "hundredths", while after that is "thousandths"
-      let afterPoint = answer.substring(pointLoc + 3, answer.length).replace(/\B(?<=(^(\d{3})+))/g, ",") // fter the first two digits after the decimal point
-      let total = beforePoint
+      /* var midPoint = answer.substring(pointLoc + 1, pointLoc + 3) // he first two digits after the decimal point this is because the first two digits after the decimal point are the "tenths" and "hundredths", while after that is "thousandths"
+      var afterPoint = answer.substring(pointLoc + 3, answer.length).replace(/\B(?<=(^(\d{3})+))/g, ",") // fter the first two digits after the decimal point
+      var total = beforePoint
 
       if (midPoint != '') { // dds the decimal point only if it is needed
         total += '.' + midPoint
@@ -106,19 +127,25 @@ input.oninput = function () {
           total += ',' + afterPoint
         }
       } */
-      const afterPoint = ansString.substring(pointLoc, ansString.length)
-      const total = beforePoint + afterPoint
+      var afterPoint = ansString.substring(pointLoc, ansString.length)
+      var total = beforePoint + afterPoint
 
       formattedSpan.innerHTML = total
     }
   }
-  setMetaData('')
-  setAnswer(currentAnswer)
+
+  if ((currentAnswer === '') || specialConstraint.test(currentAnswer)) {
+    invalidBox.style.display = 'none'
+    setMetaData('')
+    setAnswer(currentAnswer)
+  } else {
+    invalidBox.style.display = ''
+  }
 }
 
 function buttonFontAdjuster (button) { // djusts size of the text of the buttons in case the text is too long
   var fontSize = parseInt(window.getComputedStyle(button, null).getPropertyValue('font-size'))
-  let stopper = 50
+  var stopper = 50
   while (button.scrollHeight > button.clientHeight) {
     fontSize--
     button.style.fontSize = fontSize + 'px'
@@ -167,13 +194,7 @@ function handleRequiredMessage (message) {
 }
 
 function dispWarning (clickedLabel, clickedValue) { // Displays the warning when tapping a button when there is already content in the text box
-  oldValue = input.value
-  replacementValue = clickedLabel
-
-  let warningMessage = new Function('return `' + warningTemplate + '`')() // Takes the string template, and turns it into an actual template.
-  warningMessage += `<br><button id="yes" class="whitebutton" dir="auto">${yesButton}</button><button id="no" class="bluebutton" dir="auto">${noButton}</button>` // Adds on the "Yes" and "No" buttons
-
-  warningContainer.innerHTML = warningMessage
+  warningContainer.style.display = ''
 
   document.querySelector('#yes').addEventListener('click', function () {
     setMetaData(clickedLabel)
@@ -182,6 +203,6 @@ function dispWarning (clickedLabel, clickedValue) { // Displays the warning when
   })
 
   document.querySelector('#no').addEventListener('click', function () {
-    warningContainer.innerHTML = null
+    warningContainer.style.display = 'none'
   })
 }
