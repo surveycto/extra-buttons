@@ -69,9 +69,9 @@ for (var b = 0; b < numButtons; b++) {
   var button = allButtons[b]
   buttonFontAdjuster(button)
   if (!fieldProperties.READONLY) {
-    button.addEventListener('click', function () { // Adds event listener to buttons
-      var clickedLabel = button.innerHTML
-      var clickedValue = button.value
+    button.addEventListener('click', function (e) { // Adds event listener to buttons
+      var clickedLabel = e.target.innerHTML
+      var clickedValue = e.target.value
       var currentInput = input.value
       if ((currentInput === '') || (currentInput == null) || (altValues.indexOf(currentInput) !== -1)) {
         setMetaData(clickedLabel)
