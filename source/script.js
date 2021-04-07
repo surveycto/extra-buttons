@@ -53,7 +53,7 @@ for (var buttonNumber = 1; buttonNumber <= 100; buttonNumber++) {
   var buttonLabel = getPluginParameter('button' + String(buttonNumber))
   var buttonValue = getPluginParameter('value' + String(buttonNumber))
   if ((buttonLabel != null) && (buttonValue != null)) {
-    var buttonHtml = '<button id="' + buttonLabel + '" class="altbutton button' + (((buttonNumber + 1) / 2 % 2) + 1) + '" value="' + buttonValue + '" dir="auto">' + buttonLabel + '</button>'
+    var buttonHtml = '<button id="' + buttonLabel + '" class="altbutton button' + String(buttonNumber % 2) + '" value="' + buttonValue + '" dir="auto">' + buttonLabel + '</button>'
     buttonsDisp += buttonHtml
     altValues.push(buttonValue)
   } else {
@@ -69,9 +69,9 @@ for (var b = 0; b < numButtons; b++) {
   var button = allButtons[b]
   buttonFontAdjuster(button)
   if (!fieldProperties.READONLY) {
-    button.addEventListener('click', function () { // Adds event listener to buttons
-      var clickedLabel = button.innerHTML
-      var clickedValue = button.value
+    button.addEventListener('click', function (e) { // Adds event listener to buttons
+      var clickedLabel = e.target.innerHTML
+      var clickedValue = e.target.value
       var currentInput = input.value
       if ((currentInput === '') || (currentInput == null) || (altValues.indexOf(currentInput) !== -1)) {
         setMetaData(clickedLabel)
