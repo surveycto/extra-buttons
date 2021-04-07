@@ -53,7 +53,7 @@ for (var buttonNumber = 1; buttonNumber <= 100; buttonNumber++) {
   var buttonLabel = getPluginParameter('button' + String(buttonNumber))
   var buttonValue = getPluginParameter('value' + String(buttonNumber))
   if ((buttonLabel != null) && (buttonValue != null)) {
-    var buttonHtml = '<button id="' + buttonLabel + '" class="altbutton button' + (((buttonNumber + 1) / 2 % 2) + 1) + '" value="' + buttonValue + '" dir="auto">' + buttonLabel + '</button>'
+    var buttonHtml = '<button id="' + buttonLabel + '" class="altbutton button' + String(buttonNumber % 2) + '" value="' + buttonValue + '" dir="auto">' + buttonLabel + '</button>'
     buttonsDisp += buttonHtml
     altValues.push(buttonValue)
   } else {
