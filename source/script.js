@@ -1,4 +1,4 @@
-/* global fieldProperties, setAnswer, getPluginParameter, setMetaData */
+/* global fieldProperties, setAnswer, getPluginParameter, setMetaData, goToNextField */
 
 var input = document.querySelector('#field')
 var formGroup = document.querySelector('.form-group')
@@ -9,6 +9,14 @@ var warningContainer = document.querySelector('#warning')
 var yesButton = document.querySelector('#yes')
 var noButton = document.querySelector('#no')
 var invalidBox = document.querySelector('.error-box')
+
+var autoAdvance = getPluginParameter('autoadvance')
+
+if (autoAdvance === 1) {
+  autoAdvance = true
+} else {
+  autoAdvance = false
+}
 
 var fieldType = fieldProperties.FIELDTYPE
 var appearance = fieldProperties.APPEARANCE
@@ -77,6 +85,9 @@ for (var b = 0; b < numButtons; b++) {
         setMetaData(clickedLabel)
         setAnswer(clickedValue)
         input.value = clickedValue
+        if (autoAdvance) {
+          goToNextField()
+        }
       } else {
         dispWarning(clickedLabel, clickedValue)
       }
@@ -201,6 +212,9 @@ function dispWarning (clickedLabel, clickedValue) { // Displays the warning when
     setAnswer(clickedValue)
     input.value = clickedValue
     warningContainer.style.display = 'none'
+    if (autoAdvance) {
+      goToNextField()
+    }
   })
 
   document.querySelector('#no').addEventListener('click', function () {
