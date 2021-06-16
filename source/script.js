@@ -76,6 +76,7 @@ for (var b = 0; b < numButtons; b++) {
       if ((currentInput === '') || (currentInput == null) || (altValues.indexOf(currentInput) !== -1)) {
         setMetaData(clickedLabel)
         setAnswer(clickedValue)
+        input.value = clickedValue
       } else {
         dispWarning(clickedLabel, clickedValue)
       }
@@ -198,6 +199,8 @@ function dispWarning (clickedLabel, clickedValue) { // Displays the warning when
   document.querySelector('#yes').addEventListener('click', function () {
     setMetaData(clickedLabel)
     setAnswer(clickedValue)
+    input.value = clickedValue
+    warningContainer.style.display = 'none'
   })
 
   document.querySelector('#no').addEventListener('click', function () {
