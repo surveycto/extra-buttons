@@ -1,4 +1,4 @@
-/* global fieldProperties, setAnswer, goToNextField, getPluginParameter, setMetaData */
+/* global fieldProperties, setAnswer, getPluginParameter, setMetaData */
 
 var input = document.querySelector('#field')
 var formGroup = document.querySelector('.form-group')
@@ -76,7 +76,6 @@ for (var b = 0; b < numButtons; b++) {
       if ((currentInput === '') || (currentInput == null) || (altValues.indexOf(currentInput) !== -1)) {
         setMetaData(clickedLabel)
         setAnswer(clickedValue)
-        goToNextField()
       } else {
         dispWarning(clickedLabel, clickedValue)
       }
@@ -199,7 +198,6 @@ function dispWarning (clickedLabel, clickedValue) { // Displays the warning when
   document.querySelector('#yes').addEventListener('click', function () {
     setMetaData(clickedLabel)
     setAnswer(clickedValue)
-    goToNextField()
   })
 
   document.querySelector('#no').addEventListener('click', function () {
