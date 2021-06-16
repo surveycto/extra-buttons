@@ -10,9 +10,9 @@
 
 *There were recent updates to the field plug-in paramters. If you are already using an older version of this field plug-in (before 1.2.0), and you would like to use the newer version, you will have to update your parameters in the* appearance *property of your field(s). See [parameters](#parameters) below for more details.*
 
-Use this field plug-in to add extra buttons to your text, integer, or decimal field. When a button is selected, the field will automatically advance. If there is already something in the text box when pressing a button, a warning message will confirm if you would like to replace what you already have.
+Use this field plug-in to add extra buttons to your text, integer, or decimal field. When a button is pressed, and the field value is currently blank, that value will be saved as the field value. If there is already something in the text box when pressing a button (other than the value of the pressed button), a warning message will confirm if you would like to replace what you already have.
 
-You can specify exactly what each button says, and what its value should be (for example, you can specify that when "I don't know" is selected, then the field has a value of -99). You can use the parameters to specify as many buttons as you would like. The label of the button selected will be stored in the metadata for that field.
+You can specify exactly what each button says, and what its value should be (for example, you can specify that when "I don't know" is selected, then the field should have a value of -99). You can use the parameters to specify as many buttons as you would like. The label of the button selected will be stored in the metadata for that field.
 
 The default warning message is:
 >Warning: This field already has a value. Are you sure you would like to replace it?
