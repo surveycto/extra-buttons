@@ -40,7 +40,7 @@ You can also retrieve the label of the button selected using the SurveyCTO plug-
 
 ### Getting started
 
-1. Download the [sample form](extras/readme-images/sample-form) from this repo and upload it to your SurveyCTO server.
+1. Download the [sample form](https://github.com/surveycto/extra-buttons/raw/master/extras/sample-form/Extra%20buttons.xlsx) from this repo and upload it to your SurveyCTO server.
 1. Download the [extrabuttons.fieldplugin.zip](https://github.com/surveycto/extra-buttons/raw/master/extrabuttons.fieldplugin.zip) file from this repo, and attach it to the sample form on your SurveyCTO server.
 1. Adjust the parameter if you would like to use a different unit (see below).
 
@@ -88,7 +88,7 @@ You can also customize the error message that appears when an enumerator selects
 ## More resources
 
 * **Sample form**  
-You can find a form definition in this repo here: [extras/readme-images/sample-form](extras/readme-images/sample-form).
+You can find a form definition in this repo here: [extras/sample-form](/extras/sample-form).
 
 * **Developer documentation**  
 More instructions for developing and using field plug-ins can be found here: [https://github.com/surveycto/Field-plug-in-resources](https://github.com/surveycto/Field-plug-in-resources)
