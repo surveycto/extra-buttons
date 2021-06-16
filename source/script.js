@@ -55,7 +55,7 @@ for (var buttonNumber = 1; buttonNumber <= 100; buttonNumber++) {
   if ((buttonLabel != null) && (buttonValue != null)) {
     var buttonHtml = '<button id="' + buttonLabel + '" class="altbutton button' + String(buttonNumber % 2) + '" value="' + buttonValue + '" dir="auto">' + buttonLabel + '</button>'
     buttonsDisp += buttonHtml
-    altValues.push(buttonValue)
+    altValues.push(buttonValue) // Currently not used
   } else {
     break // Stop looking for buttons when number in parameter name is not found
   }
@@ -73,7 +73,7 @@ for (var b = 0; b < numButtons; b++) {
       var clickedLabel = e.target.innerHTML
       var clickedValue = e.target.value
       var currentInput = input.value
-      if ((currentInput === '') || (currentInput == null) || (altValues.indexOf(currentInput) !== -1)) {
+      if ((currentInput === '') || (currentInput == null) || (String(clickedValue) === String(currentInput))) {
         setMetaData(clickedLabel)
         setAnswer(clickedValue)
         input.value = clickedValue
