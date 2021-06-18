@@ -48,12 +48,12 @@ You can also retrieve the label of the button selected using the SurveyCTO plug-
 
 |**Name**|**Description**|
 |---|---|
-|`button#`|See [button parameters](#button-parameters) below to learn more.|
-|`value#`|See [button parameters](#button-parameters) below to learn more.|
-|`warning`|Used to customize the warning message that will appear when the enumerator presses a button when the field already has a value. The value of this parameter will be displayed instead of the default warning message.|
-|`yes`|What will be displayed instead of "Yes" in the confirmation.|
-|`no`|What will be displayed instead of "No" in the confirmation.|
-|`autoadvance`|If this parameter has a value of `1`, then when a button is pressed, the field will auto-advance to the next field, similar to the "quick" *appearance* in *[select_one](https://docs.surveycto.com/02-designing-forms/01-core-concepts/03h.field-types-select-one.html)* fields. If the field already has a value other than the value of the button pressed, then it will first display the warning, and then if "Yes" is pressed, the field will auto-advance.|
+|`button#` (required)|See [button parameters](#button-parameters) below to learn more.|
+|`value#` (required)|See [button parameters](#button-parameters) below to learn more.|
+|`warning` (optional)|Used to customize the warning message that will appear when the enumerator presses a button when the field already has a value. The value of this parameter will be displayed instead of the default warning message.|
+|`yes` (optional)|What will be displayed instead of "Yes" in the confirmation.|
+|`no` (optional)|What will be displayed instead of "No" in the confirmation.|
+|`autoadvance` (optional)|If this parameter has a value of `1`, then when a button is pressed, the field will auto-advance to the next field, similar to the "quick" *appearance* in *[select_one](https://docs.surveycto.com/02-designing-forms/01-core-concepts/03h.field-types-select-one.html)* fields. If the field already has a value other than the value of the button pressed, then it will first display the warning, and then if "Yes" is pressed, the field will auto-advance.|
 
 ##### Button parameters
 
