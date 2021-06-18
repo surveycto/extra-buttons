@@ -46,6 +46,17 @@ You can also retrieve the label of the button selected using the SurveyCTO plug-
 
 ### Parameters
 
+|**Name**|**Description**|
+|---|---|
+|`button#`|See [button parameters](#button-parameters) below to learn more.|
+|`value#`|See [button parameters](#button-parameters) below to learn more.|
+|`warning`|Used to customize the warning message that will appear when the enumerator presses a button when the field already has a value. The value of this parameter will be displayed instead of the default warning message.|
+|`yes`|What will be displayed instead of "Yes" in the confirmation.|
+|`no`|What will be displayed instead of "No" in the confirmation.|
+|`autoadvance`|If this parameter has a value of `1`, then when a button is pressed, the field will auto-advance to the next field, similar to the "quick" *appearance* in *[select_one](https://docs.surveycto.com/02-designing-forms/01-core-concepts/03h.field-types-select-one.html)* fields. If the field already has a value other than the value of the button pressed, then it will first display the warning, and then if "Yes" is pressed, the field will auto-advance.|
+
+##### Button parameters
+
 For each extra button you would like to add, you will need a label, called "button", and a "value". For the parameter name, take the parameter name, and add the button number. For example, the parameter for the label of the first button will be `button1`, the parameter for the label of the second button will be `button2`, and so on. The parameter for the value for the first button will be `value1`, the parameter for the value of the second button will be `value2`, and so on. So, if you wanted one button with the label "I don't know" and a value of `-99`, and another button with a label of "Refused" and a value of -88, you would use this *appearance*:
 
     custom-extrabuttons(button1="I don't know", value1=-99, button2='Refused', value2=-88)
@@ -54,11 +65,9 @@ You can add as many or as few buttons as you'd like.
 
 Be sure to update your *constraint* so it accepts the button values as values.
 
-You can also customize the error message that appears when an enumerator selects a button when the field already has a value.
+#### Example
 
-`warning`: What will be displayed instead of the default warning message.<br>
-`yes`: What will be displayed instead of "Yes" in the confirmation.<br>
-`no`: What will be displayed instead of "No" in the confirmation.
+Here is an example of what the *appearance* of a field using this field plug-in could look like:
 
     custom-extrabuttons(warning='Attention: ce champ a déjà une valeur. Etes-vous sûr de vouloir le remplacer?',
     yes='Oui',
@@ -67,6 +76,10 @@ You can also customize the error message that appears when an enumerator selects
     value1=-99,
     button2='Refused',
     value2=-88)
+
+There will be two buttons: When "I don't know" is pressed, the field will be given a value of -99, and when "Refused" is pressed, the field will be given a value of -88.
+
+If the field already has a value, and a button is pressed, it will give the warning "Attention: ce champ a déjà une valeur. Etes-vous sûr de vouloir le remplacer?", and it will give the options "Oui" and "Non".
 
 ### Default SurveyCTO feature support
 
