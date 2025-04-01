@@ -83,6 +83,18 @@ button.altbutton{
     vertical-align: top;
 }
 
+.dynamic-sizing button.altbutton {
+    height: auto;
+    min-height: 30px;
+    padding: 5px 10px;
+    min-width: 100px;
+    max-width: 100%;
+    width: auto; /* override fixed width */
+    white-space: normal;
+    overflow-wrap: break-word;
+    text-align: center;
+  }
+
 .button1{
     background-color: #efefef;
 }

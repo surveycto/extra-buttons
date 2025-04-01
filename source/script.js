@@ -12,6 +12,15 @@ var invalidBox = document.querySelector('.error-box')
 
 var autoAdvance = getPluginParameter('autoadvance')
 
+// Using Dynamic sizing
+var dynamicParam = getPluginParameter('dynamic')
+var dynamicSizing = (String(dynamicParam).toLowerCase() === '1' || String(dynamicParam).toLowerCase() === 'yes')
+
+// If dynamic sizing is on, add the class to <body>
+if (dynamicSizing) {
+  document.body.classList.add('dynamic-sizing')
+}
+
 if (autoAdvance === 1) {
   autoAdvance = true
 } else {
@@ -75,7 +84,9 @@ var numButtons = allButtons.length
 
 for (var b = 0; b < numButtons; b++) {
   var button = allButtons[b]
-  buttonFontAdjuster(button)
+  if (!dynamicSizing) {
+    buttonFontAdjuster(button)
+  }
   if (!fieldProperties.READONLY) {
     button.addEventListener('click', function (e) { // Adds event listener to buttons
       var clickedLabel = e.target.innerHTML
@@ -154,7 +165,7 @@ input.oninput = function () {
   }
 }
 
-function buttonFontAdjuster (button) { // djusts size of the text of the buttons in case the text is too long
+function buttonFontAdjuster (button) { // Adjusts size of the text of the buttons in case the text is too long
   var fontSize = parseInt(window.getComputedStyle(button, null).getPropertyValue('font-size'))
   var stopper = 50
   while (button.scrollHeight > button.clientHeight) {
