@@ -21,6 +21,14 @@ if (dynamicSizing) {
   document.body.classList.add('dynamic-sizing')
 }
 
+// Stacked buttons
+var stackedParam = getPluginParameter('stacked')
+var stackedButtons = (String(stackedParam).toLowerCase() === '1' || String(stackedParam).toLowerCase() === 'yes')
+
+if (stackedButtons) {
+  document.body.classList.add('stacked-buttons')
+}
+
 if (autoAdvance === 1) {
   autoAdvance = true
 } else {
