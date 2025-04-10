@@ -34,7 +34,7 @@ const rawButtonString = getPluginParameter('buttons') || ''
 const lang = fieldProperties.LANGUAGE || 'en'
 
 function getLocalizedParam(key) {
-  const localized = getPluginParameter(`${key}::${lang}`)
+  const localized = getPluginParameter(`${key}:${lang}`)
   if (localized !== null && localized !== undefined) {
     return localized
   }

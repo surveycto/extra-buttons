@@ -54,6 +54,8 @@ You can also retrieve the label of the button selected using the SurveyCTO plug-
 |`yes` (optional)|What will be displayed instead of "Yes" in the confirmation.|
 |`no` (optional)|What will be displayed instead of "No" in the confirmation.|
 |`autoadvance` (optional)|If this parameter has a value of `1`, then when a button is pressed, the field will auto-advance to the next field, similar to the "quick" *appearance* in *[select_one](https://docs.surveycto.com/02-designing-forms/01-core-concepts/03h.field-types-select-one.html)* fields. If the field already has a value other than the value of the button pressed, then it will first display the warning, and then if "Yes" is pressed, the field will auto-advance.|
+|`dynamic` (optional)|If set to `1` or `yes`, buttons will auto-resize to fit their labels by wrapping text. If not set, the plug-in uses fixed-width buttons and shrinks text to fit.|
+|`stacked` (optional)|If set to `1` or `yes`, the buttons will appear stacked vertically. Otherwise, buttons will appear inline horizontally.|
 
 ##### Button parameters
 
@@ -65,21 +67,35 @@ You can add as many or as few buttons as you'd like.
 
 Be sure to update your *constraint* so it accepts the button values as values.
 
+##### Multi-language support
+
+This field plug-in supports multi-language forms by allowing parameters to be specified for specific languages using a single colon syntax, such as `button1:french`, `value1:spanish`, or `warning:french`. When the form is displayed in a particular language, the plug-in will automatically use the appropriate language-specific parameters if available. If a language-specific version is not provided, it will fall back to the default.
+
+You can localize any of the following: button labels, button values, the warning message, and the confirmation labels (`yes` and `no`).
+
 #### Example
 
-Here is an example of what the *appearance* of a field using this field plug-in could look like:
+Here is an example of what the *appearance* of a field using this field plug-in could look like, using dynamic sizing, stacked layout, and multi-language labels:
 
-    custom-extrabuttons(warning='Attention: ce champ a déjà une valeur. Etes-vous sûr de vouloir le remplacer?',
-    yes='Oui',
-    no='Non',
-    button1="I don't know",
-    value1=-99,
-    button2='Refused',
-    value2=-88)
+      custom-extrabuttons(
+        warning='This field already has a value. Replace it?',
+        yes='Yes',
+        no='No',
+        button1="I don't know", value1=-99,
+        button2="Refused", value2=-88,
+        button1:french="Je ne sais pas", value1:french=-99,
+        button2:french="Refusé", value2:french=-88,
+        button1:spanish="No lo sé", value1:spanish=-99,
+        button2:spanish="Rechazado", value2:spanish=-88,
+        warning:french="Ce champ a déjà une valeur. Voulez-vous le remplacer ?",
+        warning:spanish="Este campo ya tiene un valor. ¿Desea reemplazarlo?",
+        yes:french="Oui", no:french="Non",
+        yes:spanish="Sí", no:spanish="No",
+        dynamic=1,
+        stacked=1
+      )
 
-There will be two buttons: When "I don't know" is pressed, the field will be given a value of -99, and when "Refused" is pressed, the field will be given a value of -88.
-
-If the field already has a value, and a button is pressed, it will give the warning "Attention: ce champ a déjà une valeur. Etes-vous sûr de vouloir le remplacer?", and it will give the options "Oui" and "Non".
+In this example, the plug-in will show different button labels and messages depending on the form language (English, French, or Spanish), and the buttons will be stacked vertically and dynamically sized to fit their text.
 
 ### Default SurveyCTO feature support
 
