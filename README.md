@@ -74,7 +74,6 @@ The `dynamic` and `stacked` parameters control how the extra buttons are display
 *   **`stacked=1` only:** Buttons are arranged vertically, one above the other. They still have a fixed width, and long labels will shrink to fit within that width.
 *   **`dynamic=1` only:** Buttons appear inline (horizontally). Their width adjusts automatically to fit the length of their labels. If a label is very long, the text will wrap onto multiple lines within the button.
 *   **`dynamic=1` and `stacked=1`:** Buttons are arranged vertically. Their width adjusts to fit the available screen space, and the label text **will wrap** onto multiple lines within the button if it's too long to fit on one line. This combination prevents text from shrinking and ensures readability for longer labels in a vertical layout.
-```
 
 ##### Multi-language support
 
