@@ -7,9 +7,6 @@
 |Warning|
 
 ## Description
-
-*There were recent updates to the field plug-in paramters. If you are already using an older version of this field plug-in (before 1.2.0), and you would like to use the newer version, you will have to update your parameters in the* appearance *property of your field(s). See [parameters](#parameters) below for more details.*
-
 Use this field plug-in to add extra buttons to your *text*, *integer*, or *decimal* field. When a button is pressed, and the field value is currently blank, that button's value will be saved as the field value. If the field already has a value when pressing a button (other than the value of the pressed button), a warning message will confirm if you would like to replace what you already have.
 
 You can specify exactly what each button says, and what its value should be (for example, you can specify that when "I don't know" is selected, then the field should have a value of -99). You can use the parameters to specify as many buttons as you would like. The label of the button selected will be stored in the metadata for that field.
@@ -29,6 +26,8 @@ This field plug-in also inherits functionality from the [baseline-text](https://
 * Customize button value and text
 * Add as many buttons as needed
 * Warning if button pressed when field has a value
+* Supports multiple layout configurations, including stacked and dynamically sized buttons
+* Fully supports multi-language forms with localized button labels, values, and warning messages
 
 ### Data format
 
@@ -54,7 +53,7 @@ You can also retrieve the label of the button selected using the SurveyCTO plug-
 |`yes` (optional)|What will be displayed instead of "Yes" in the confirmation.|
 |`no` (optional)|What will be displayed instead of "No" in the confirmation.|
 |`autoadvance` (optional)|If this parameter has a value of `1`, then when a button is pressed, the field will auto-advance to the next field, similar to the "quick" *appearance* in *[select_one](https://docs.surveycto.com/02-designing-forms/01-core-concepts/03h.field-types-select-one.html)* fields. If the field already has a value other than the value of the button pressed, then it will first display the warning, and then if "Yes" is pressed, the field will auto-advance.|
-|`dynamic` (optional)|If set to `1` or `yes`, buttons will auto-resize to fit their labels by wrapping text. If not set, the plug-in uses fixed-width buttons and shrinks text to fit.|
+|`dynamic` (optional)|If set to `1` or `yes`, the buttons will auto-resize to fit their labels by wrapping text. If not set, the plug-in uses fixed-width buttons and shrinks text to fit.|
 |`stacked` (optional)|If set to `1` or `yes`, the buttons will appear stacked vertically. Otherwise, buttons will appear inline horizontally.|
 
 ##### Button parameters
@@ -66,6 +65,16 @@ For each extra button you would like to add, you will need a label, called "butt
 You can add as many or as few buttons as you'd like.
 
 Be sure to update your *constraint* so it accepts the button values as values.
+
+#### Understanding Layout Options (`dynamic` and `stacked`)
+
+The `dynamic` and `stacked` parameters control how the extra buttons are displayed. Here's how they work individually and together:
+
+*   **Default (neither `dynamic` nor `stacked` set):** Buttons appear inline (horizontally) next to each other. They have a fixed width, and if a label is too long for the button, the text size will shrink to fit.
+*   **`stacked=1` only:** Buttons are arranged vertically, one above the other. They still have a fixed width, and long labels will shrink to fit within that width.
+*   **`dynamic=1` only:** Buttons appear inline (horizontally). Their width adjusts automatically to fit the length of their labels. If a label is very long, the text will wrap onto multiple lines within the button.
+*   **`dynamic=1` and `stacked=1`:** Buttons are arranged vertically. Their width adjusts to fit the available screen space, and the label text **will wrap** onto multiple lines within the button if it's too long to fit on one line. This combination prevents text from shrinking and ensures readability for longer labels in a vertical layout.
+```
 
 ##### Multi-language support
 
