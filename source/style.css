@@ -24,10 +24,11 @@ body{
 }
 
 .form-control { /*Input box*/
+    box-sizing: border-box; 
     border-radius: 0!important;
     box-shadow: none;
     display: block;
-    width: 95%;
+    width: 100%;
     padding: 6px 12px;
     font-size: 14px;
     line-height: 1.42857143;
@@ -37,7 +38,7 @@ body{
     transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;overflow: hidden;
     overflow-wrap: break-word;
     resize: horizontal;
-    height: 20px;
+    height: 30px;
     outline: none;
     font-family: inherit;
     font: inherit;
