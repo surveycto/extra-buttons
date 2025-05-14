@@ -110,7 +110,7 @@ if (fieldType === 'integer') {
 for (let buttonNumber = 1; buttonNumber <= 100; buttonNumber++) {
   const buttonLabel = getLocalizedParam('button' + buttonNumber)
   const buttonValue = getLocalizedParam('value' + buttonNumber)
-  if (buttonLabel && buttonValue) {
+  if (buttonLabel && (buttonValue !== null && buttonValue !== undefined && buttonValue !== '')) {
     const buttonHtml = '<button id="btn' + buttonNumber + '" class="altbutton button' + String(buttonNumber % 2) + '" value="' + buttonValue + '" dir="auto">' + buttonLabel + '</button>'
     buttonsDisp += buttonHtml
     altValues.push(buttonValue)
