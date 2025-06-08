@@ -12,6 +12,35 @@ var invalidBox = document.querySelector('.error-box')
 
 var autoAdvance = getPluginParameter('autoadvance')
 
+// Using Dynamic sizing
+var dynamicParam = getPluginParameter('dynamic')
+var dynamicSizing = (String(dynamicParam).toLowerCase() === '1' || String(dynamicParam).toLowerCase() === 'yes')
+
+// If dynamic sizing is on, add the class to <body>
+if (dynamicSizing) {
+  document.body.classList.add('dynamic-sizing')
+}
+
+// Stacked buttons
+var stackedParam = getPluginParameter('stacked')
+var stackedButtons = (String(stackedParam).toLowerCase() === '1' || String(stackedParam).toLowerCase() === 'yes')
+
+if (stackedButtons) {
+  document.body.classList.add('stacked-buttons')
+}
+
+// Determine current language (default to 'en')
+const rawButtonString = getPluginParameter('buttons') || ''
+const lang = fieldProperties.LANGUAGE || 'en'
+
+function getLocalizedParam(key) {
+  const localized = getPluginParameter(`${key}:${lang}`)
+  if (localized !== null && localized !== undefined) {
+    return localized
+  }
+  return getPluginParameter(key)
+}
+
 if (autoAdvance === 1) {
   autoAdvance = true
 } else {
@@ -23,6 +52,27 @@ var appearance = fieldProperties.APPEARANCE
 var altValues = []
 var buttonsDisp = ''
 var specialConstraint
+
+// === Button string parsing based on language ===
+
+function extractLanguageBlock(raw, lang) {
+  const pattern = new RegExp(`\$begin:math:display$lang=${lang}\\$end:math:display$([\\s\\S]*?)\$begin:math:display$\\\\/lang\\$end:math:display$`, 'i')
+  const match = raw.match(pattern)
+  return match ? match[1].trim() : ''
+}
+
+function parseButtonBlock(block) {
+  const result = {}
+  const pattern = /(\\w+)\\s*=\\s*['\"]([^'\"]+)['\"]/g
+  let match
+  while ((match = pattern.exec(block)) !== null) {
+    result[match[1]] = match[2]
+  }
+  return result
+}
+
+const langBlock = extractLanguageBlock(rawButtonString, lang)
+const buttonDefs = parseButtonBlock(langBlock)
 
 invalidBox.style.display = 'none'
 
@@ -57,15 +107,15 @@ if (fieldType === 'integer') {
   }
 }
 
-for (var buttonNumber = 1; buttonNumber <= 100; buttonNumber++) {
-  var buttonLabel = getPluginParameter('button' + String(buttonNumber))
-  var buttonValue = getPluginParameter('value' + String(buttonNumber))
-  if ((buttonLabel != null) && (buttonValue != null)) {
-    var buttonHtml = '<button id="' + buttonLabel + '" class="altbutton button' + String(buttonNumber % 2) + '" value="' + buttonValue + '" dir="auto">' + buttonLabel + '</button>'
+for (let buttonNumber = 1; buttonNumber <= 100; buttonNumber++) {
+  const buttonLabel = getLocalizedParam('button' + buttonNumber)
+  const buttonValue = getLocalizedParam('value' + buttonNumber)
+  if (buttonLabel && (buttonValue !== null && buttonValue !== undefined && buttonValue !== '')) {
+    const buttonHtml = '<button id="btn' + buttonNumber + '" class="altbutton button' + String(buttonNumber % 2) + '" value="' + buttonValue + '" dir="auto">' + buttonLabel + '</button>'
     buttonsDisp += buttonHtml
-    altValues.push(buttonValue) // Currently not used
+    altValues.push(buttonValue)
   } else {
-    break // Stop looking for buttons when number in parameter name is not found
+    break
   }
 }
 
@@ -75,7 +125,9 @@ var numButtons = allButtons.length
 
 for (var b = 0; b < numButtons; b++) {
   var button = allButtons[b]
-  buttonFontAdjuster(button)
+  if (!dynamicSizing) {
+    buttonFontAdjuster(button)
+  }
   if (!fieldProperties.READONLY) {
     button.addEventListener('click', function (e) { // Adds event listener to buttons
       var clickedLabel = e.target.innerHTML
@@ -95,22 +147,13 @@ for (var b = 0; b < numButtons; b++) {
   }
 }
 
-var yesButtonText = getPluginParameter('yes')
-if (yesButtonText != null) {
-  yesButton.innerHTML = yesButtonText
-}
+const yesButtonText = getLocalizedParam('yes') || 'Yes'
+const noButtonText = getLocalizedParam('no') || 'No'
+const warningMessage = getLocalizedParam('warning') || 'Warning: This field already has a value. Are you sure you would like to replace it?'
 
-var noButtonText = getPluginParameter('no')
-if (noButtonText != null) {
-  noButton.innerHTML = noButtonText
-}
-
-var warningMessage = getPluginParameter('warning')
-if (warningMessage == null) {
-  warningMessage = 'Warning: This field already has a value. Are you sure you would like to replace it?'
-} else {
-  warningContainer.querySelector('#warning-message').innerHTML = warningMessage
-}
+yesButton.innerHTML = yesButtonText
+noButton.innerHTML = noButtonText
+warningContainer.querySelector('#warning-message').innerHTML = warningMessage
 warningContainer.style.display = 'none'
 
 input.oninput = function () {
@@ -154,7 +197,7 @@ input.oninput = function () {
   }
 }
 
-function buttonFontAdjuster (button) { // djusts size of the text of the buttons in case the text is too long
+function buttonFontAdjuster (button) { // Adjusts size of the text of the buttons in case the text is too long
   var fontSize = parseInt(window.getComputedStyle(button, null).getPropertyValue('font-size'))
   var stopper = 50
   while (button.scrollHeight > button.clientHeight) {

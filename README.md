@@ -7,9 +7,6 @@
 |Warning|
 
 ## Description
-
-*There were recent updates to the field plug-in paramters. If you are already using an older version of this field plug-in (before 1.2.0), and you would like to use the newer version, you will have to update your parameters in the* appearance *property of your field(s). See [parameters](#parameters) below for more details.*
-
 Use this field plug-in to add extra buttons to your *text*, *integer*, or *decimal* field. When a button is pressed, and the field value is currently blank, that button's value will be saved as the field value. If the field already has a value when pressing a button (other than the value of the pressed button), a warning message will confirm if you would like to replace what you already have.
 
 You can specify exactly what each button says, and what its value should be (for example, you can specify that when "I don't know" is selected, then the field should have a value of -99). You can use the parameters to specify as many buttons as you would like. The label of the button selected will be stored in the metadata for that field.
@@ -29,6 +26,8 @@ This field plug-in also inherits functionality from the [baseline-text](https://
 * Customize button value and text
 * Add as many buttons as needed
 * Warning if button pressed when field has a value
+* Supports multiple layout configurations, including stacked and dynamically sized buttons
+* Fully supports multi-language forms with localized button labels, values, and warning messages
 
 ### Data format
 
@@ -54,6 +53,8 @@ You can also retrieve the label of the button selected using the SurveyCTO plug-
 |`yes` (optional)|What will be displayed instead of "Yes" in the confirmation.|
 |`no` (optional)|What will be displayed instead of "No" in the confirmation.|
 |`autoadvance` (optional)|If this parameter has a value of `1`, then when a button is pressed, the field will auto-advance to the next field, similar to the "quick" *appearance* in *[select_one](https://docs.surveycto.com/02-designing-forms/01-core-concepts/03h.field-types-select-one.html)* fields. If the field already has a value other than the value of the button pressed, then it will first display the warning, and then if "Yes" is pressed, the field will auto-advance.|
+|`dynamic` (optional)|If set to `1` or `yes`, the buttons will auto-resize to fit their labels by wrapping text. If not set, the plug-in uses fixed-width buttons and shrinks text to fit.|
+|`stacked` (optional)|If set to `1` or `yes`, the buttons will appear stacked vertically. Otherwise, buttons will appear inline horizontally.|
 
 ##### Button parameters
 
@@ -65,21 +66,44 @@ You can add as many or as few buttons as you'd like.
 
 Be sure to update your *constraint* so it accepts the button values as values.
 
+##### Understanding Layout Options (`dynamic` and `stacked`)
+
+The `dynamic` and `stacked` parameters control how the extra buttons are displayed. Here's how they work individually and together:
+
+*   *Default (neither `dynamic` nor `stacked` set):* Buttons appear inline (horizontally) next to each other. They have a fixed width, and if a label is too long for the button, the text size will shrink to fit.
+*   *`stacked=1` only:* Buttons are arranged vertically, one above the other. They still have a fixed width, and long labels will shrink to fit within that width.
+*   *`dynamic=1` only:* Buttons appear inline (horizontally). Their width adjusts automatically to fit the length of their labels. If a label is very long, the text will wrap onto multiple lines within the button.
+*   *`dynamic=1` and `stacked=1`:* Buttons are arranged vertically. Their width adjusts to fit the available screen space, and the label text *will wrap* onto multiple lines within the button if it's too long to fit on one line. This combination prevents text from shrinking and ensures readability for longer labels in a vertical layout.
+
+##### Multi-language support
+
+This field plug-in supports multi-language forms by allowing parameters to be specified for specific languages using a single colon syntax, such as `button1:french`, `value1:spanish`, or `warning:french`. When the form is displayed in a particular language, the plug-in will automatically use the appropriate language-specific parameters if available. If a language-specific version is not provided, it will fall back to the default.
+
+You can localize any of the following: button labels, button values, the warning message, and the confirmation labels (`yes` and `no`).
+
 #### Example
 
-Here is an example of what the *appearance* of a field using this field plug-in could look like:
+Here is an example of what the *appearance* of a field using this field plug-in could look like, using dynamic sizing, stacked layout, and multi-language labels:
 
-    custom-extrabuttons(warning='Attention: ce champ a déjà une valeur. Etes-vous sûr de vouloir le remplacer?',
-    yes='Oui',
-    no='Non',
-    button1="I don't know",
-    value1=-99,
-    button2='Refused',
-    value2=-88)
+      custom-extrabuttons(
+        warning='This field already has a value. Replace it?',
+        yes='Yes',
+        no='No',
+        button1="I don't know", value1=-99,
+        button2="Refused", value2=-88,
+        button1:french="Je ne sais pas", value1:french=-99,
+        button2:french="Refusé", value2:french=-88,
+        button1:spanish="No lo sé", value1:spanish=-99,
+        button2:spanish="Rechazado", value2:spanish=-88,
+        warning:french="Ce champ a déjà une valeur. Voulez-vous le remplacer ?",
+        warning:spanish="Este campo ya tiene un valor. ¿Desea reemplazarlo?",
+        yes:french="Oui", no:french="Non",
+        yes:spanish="Sí", no:spanish="No",
+        dynamic=1,
+        stacked=1
+      )
 
-There will be two buttons: When "I don't know" is pressed, the field will be given a value of -99, and when "Refused" is pressed, the field will be given a value of -88.
-
-If the field already has a value, and a button is pressed, it will give the warning "Attention: ce champ a déjà une valeur. Etes-vous sûr de vouloir le remplacer?", and it will give the options "Oui" and "Non".
+In this example, the plug-in will show different button labels and messages depending on the form language (English, French, or Spanish), and the buttons will be stacked vertically and dynamically sized to fit their text.
 
 ### Default SurveyCTO feature support
 
