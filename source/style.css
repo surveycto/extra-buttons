@@ -24,10 +24,11 @@ body{
 }
 
 .form-control { /*Input box*/
+    box-sizing: border-box; 
     border-radius: 0!important;
     box-shadow: none;
     display: block;
-    width: 95%;
+    width: 100%;
     padding: 6px 12px;
     font-size: 14px;
     line-height: 1.42857143;
@@ -37,7 +38,7 @@ body{
     transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;overflow: hidden;
     overflow-wrap: break-word;
     resize: horizontal;
-    height: 20px;
+    height: 30px;
     outline: none;
     font-family: inherit;
     font: inherit;
@@ -134,4 +135,30 @@ button.bluebutton{
     width: 96%;
     color: #FFF;
     padding: 5px 10px;
+}
+
+.dynamic-sizing button.altbutton {
+    height: auto;
+    min-height: 30px;
+    padding: 5px 10px;
+    min-width: 100px;
+    max-width: 100%;
+    width: auto; /* override fixed width */
+    white-space: normal;
+    overflow-wrap: break-word;
+    text-align: center;
+  }
+
+  .stacked-buttons #buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* optional spacing between buttons */
+  }
+  
+  .stacked-buttons #buttons button.altbutton {
+    width: 100% !important; /* makes them full width if needed */
+  }
+
+  .dynamic-sizing.stacked-buttons #buttons button.altbutton {
+    width: 100% !important;
 }
